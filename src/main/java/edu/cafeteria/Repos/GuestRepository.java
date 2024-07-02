@@ -6,5 +6,5 @@ import org.springframework.stereotype.Repository;
 import edu.cafeteria.model.Guest;
 
 @Repository
-public interface GuestRepository extends JpaRepository<Guest, Integer> {
+public interface GuestRepository extends JpaRepository<Guest, Long> {
 }

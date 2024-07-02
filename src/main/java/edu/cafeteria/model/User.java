@@ -8,16 +8,16 @@ import java.util.Date;
 import java.util.List;
 
 
-@Entity
- 
- 
+@Entity 
 @Table(name = "Users")
 public   class User {
+
+	
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
     
     @Column(name = "first_name")
     private String firstName;
@@ -44,7 +44,9 @@ public   class User {
     
     
     
-    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role")
+    private Role role;
     
     
     
@@ -53,7 +55,7 @@ public   class User {
     
     
 	public User( String firstName, String lastName, Date birthDate, String email, String userName,
-			String password, String phone) {
+			String password, String phone, Role role) {
 		super();
 	 
 		this.firstName = firstName;
@@ -63,10 +65,25 @@ public   class User {
 		this.userName = userName;
 		this.password = password;
 		this.phone = phone;
+		 this.role = role;
 	}
 
 	 
 
+	public User() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public Long getId() {
+		return id;
+	}
+
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
 	public String getFirstName() {
 		return firstName;
 	}
@@ -122,5 +139,11 @@ public   class User {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+	public Role getRole() {
+        return role;
+    }
 
+    public void setRole(Role role) {
+        this.role = role;
+    }
 }

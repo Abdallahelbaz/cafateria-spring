@@ -21,13 +21,12 @@ public class Employee   {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Long id;
     @Column(name = "active") 
     private boolean active;
     @Column(name = "shift") 
     private String shift;
-    @Column(name = "salary") 
-    private float salary;
+    
 
     
     @ManyToOne(cascade = CascadeType.ALL)
@@ -48,12 +47,12 @@ public class Employee   {
 
 
 
-	public Employee(  boolean active, String shift, float salary, User user) {
+	public Employee(  boolean active, String shift , User user) {
 		super();
 		 
 		this.active = active;
 		this.shift = shift;
-		this.salary = salary;
+		 
 		this.user = user;
 	}
 
@@ -104,18 +103,7 @@ public class Employee   {
 
 
 
-	public float getSalary() {
-		return salary;
-	}
-
-
-
-
-
-
-	public void setSalary(float salary) {
-		this.salary = salary;
-	}
+	 
 
 
 
