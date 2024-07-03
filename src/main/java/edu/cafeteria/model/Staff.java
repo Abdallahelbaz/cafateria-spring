@@ -24,13 +24,12 @@ public class Staff   {
 	 
 	 
 	 
-	  @Column(name = "hospitalStaffId")
+    @Column(name = "hospitalStaffId")
     private int hospitalStaffId;
 
-	  @ManyToOne(cascade = CascadeType.ALL)
-	    @JoinColumn(name = "id_user", referencedColumnName = "id")
-	     
-	    private User user;
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_user", referencedColumnName = "id")
+    private User user;
 	  
     public Staff() {
     }
