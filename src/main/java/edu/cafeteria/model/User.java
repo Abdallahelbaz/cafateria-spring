@@ -49,15 +49,25 @@ public   class User {
     private Role role;
     
     
+    @Enumerated(EnumType.STRING)
+    @Column(name = "employeeID")
+    private EmployeeID employeeID;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "staffID")
+    private StaffID staffID;
     
     
     
     
-    
-	public User( String firstName, String lastName, Date birthDate, String email, String userName,
-			String password, String phone, Role role) {
-		super();
 	 
+
+	 
+
+	public User(  String firstName, String lastName, Date birthDate, String email, String userName,
+			String password, String phone, Role role, EmployeeID employeeID, StaffID staffID) {
+		super();
+		 
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.birthDate = birthDate;
@@ -65,10 +75,11 @@ public   class User {
 		this.userName = userName;
 		this.password = password;
 		this.phone = phone;
-		 this.role = role;
+		this.role = role;
+		this.employeeID = employeeID;
+		this.staffID = staffID;
 	}
 
-	 
 
 	public User() {
 		// TODO Auto-generated constructor stub
@@ -146,4 +157,37 @@ public   class User {
     public void setRole(Role role) {
         this.role = role;
     }
+
+
+
+	public EmployeeID getEmployeeID() {
+		return employeeID;
+	}
+
+
+
+	public void setEmployeeID(EmployeeID employeeID) {
+		this.employeeID = employeeID;
+	}
+
+
+
+	public StaffID getStaffID() {
+		return staffID;
+	}
+
+
+
+	public void setStaffID(StaffID staffID) {
+		this.staffID = staffID;
+	}
+
+
+
+	 
+
+
+
+	 
+    
 }
