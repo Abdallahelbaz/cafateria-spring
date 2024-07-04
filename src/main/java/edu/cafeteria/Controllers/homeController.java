@@ -22,6 +22,16 @@ public class homeController {
 		 return "redirect:/auth/login";
     }
 	
-	
-	
+	@GetMapping("/HomeAdmin")
+    public String homeAdmin(Model model) {
+		 return "HomeAdmin";
+    }
+	@GetMapping("/HomeEmployee")
+    public String HomeEmployee(Model model) {
+		 return "HomeEmployee";
+    }
+	@GetMapping("/HomeGuest")
+    public String HomeGuest(Model model) {
+		 return "HomeGuest";
+    }
 }

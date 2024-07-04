@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Products</title>
+</head>
+<body>
+    <h1>Products</h1>
+    <ul>
+        <li th:each="item : ${items}">
+            <p th:text="${item.name}"></p>
+            <p th:text="${item.description}"></p>
+            <p th:text="${item.price}"></p>
+            <a th:href="@{'/products/order/' + ${item.id}}">Order</a>
+        </li>
+    </ul>
+</body>
+</html>

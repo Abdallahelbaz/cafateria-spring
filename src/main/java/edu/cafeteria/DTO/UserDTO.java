@@ -5,7 +5,9 @@ import java.util.Date;
 
 import javax.persistence.Column;
 
+import edu.cafeteria.model.EmployeeID;
 import edu.cafeteria.model.Role;
+import edu.cafeteria.model.StaffID;
 
 public class UserDTO {
 
@@ -18,8 +20,8 @@ public class UserDTO {
     private String phone;
     private Role role;
     
- 
-    
+    private StaffID staffID; 
+    private EmployeeID employeeID; 
     
     
     
@@ -29,20 +31,33 @@ public class UserDTO {
 
     public UserDTO() {}
 
-    public UserDTO(Long id, String firstName, String lastName, Date birthDate, String email,
-    		String userName, String phone,String password,Role role) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.birthDate = birthDate;
-        this.email = email;
-        this.userName = userName;
-        this.phone = phone;
-        this.password = password;
-        this.role =  role;
-    }
+    
 
-    // Getters and Setters
+    public StaffID getStaffID() {
+		return staffID;
+	}
+
+
+
+	public void setStaffID(StaffID staffID) {
+		this.staffID = staffID;
+	}
+
+
+
+	public EmployeeID getEmployeeID() {
+		return employeeID;
+	}
+
+
+
+	public void setEmployeeID(EmployeeID employeeID) {
+		this.employeeID = employeeID;
+	}
+
+
+
+	// Getters and Setters
     public Long getId() {
         return id;
     }
@@ -114,4 +129,29 @@ public class UserDTO {
 	public void setRole(Role role) {
 		this.role = role;
 	}
+
+
+
+	public UserDTO(Long id, String firstName, String lastName, Date birthDate, String email, String userName,
+			String phone, String password, Role role, EmployeeID employeeID, StaffID staffID) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.userName = userName;
+		this.phone = phone;
+		this.role = role;
+		this.staffID = staffID;
+		this.employeeID = employeeID;
+		this.password = password;
+	}
+
+ 
+
+
+ 
+
+	 
 }

@@ -1,0 +1,46 @@
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create User</title>
+</head>
+<body>
+<h1>Create User</h1>
+<form th:action="@{/users}" th:object="${user}" method="post">
+    <label>First Name:</label>
+    <input type="text" th:field="*{firstName}" /><br/>
+    <label>Last Name:</label>
+    <input type="text" th:field="*{lastName}" /><br/>
+    <label>Email:</label>
+    <input type="email" th:field="*{email}" /><br/>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>
+--><!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h1 class="mb-4">Create User</h1>
+        <form th:action="@{/users}" th:object="${user}" method="post">
+            <div class="form-group">
+                <label for="firstName">First Name:</label>
+                <input type="text" id="firstName" th:field="*{firstName}" class="form-control" placeholder="Enter first name" required/>
+            </div>
+            <div class="form-group">
+                <label for="lastName">Last Name:</label>
+                <input type="text" id="lastName" th:field="*{lastName}" class="form-control" placeholder="Enter last name" required/>
+            </div>
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" th:field="*{email}" class="form-control" placeholder="Enter email" required/>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+        </form>
+    </div>
+</body>
+</html>
