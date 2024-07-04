@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Signup Selection</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5 text-center">
+        <h1>THIS ID owner has an account yet</h1>
+          <a href="/" class="btn btn-primary btn-lg mb-3">Login</a>
+           <h1>OR</h1>
+        <h1>Reselect Your Role</h1>
+        <div class="btn-group-vertical mt-4">
+            <a href="/auth/signup/guest" class="btn btn-primary btn-lg mb-3">Guest Signup</a>
+            <a href="/auth/signup/staff" class="btn btn-success btn-lg mb-3">Staff Signup</a>
+            <a href="/auth/signup/employee" class="btn btn-info btn-lg mb-3">Employee Signup</a>
+        </div>
+    </div>
+</body>
+</html>

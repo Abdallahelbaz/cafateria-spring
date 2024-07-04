@@ -43,7 +43,6 @@
 -->
 
 
-
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -64,7 +63,7 @@
         <h1>Signup</h1>
         <form action="/auth/signup" method="post">
             <div class="form-group">
-                <label>As:</label><br>
+                <label>Role:</label><br>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="role" id="roleGuest" value="guest" onclick="toggleForm()" required>
                     <label class="form-check-label" for="roleGuest">Guest</label>
@@ -147,10 +146,9 @@
                     <input type="text" id="employeeID" name="employeeID" class="form-control">
                 </div>
             </div>
-              <p class="text-danger mt-3 text-center" th:if="${error}" th:text="${error}"></p>
             <button type="submit" class="btn btn-primary">Signup</button>
-          
-      </form>
+            <div class="text-danger mt-3" th:if="${error}" th:text="${error}"></div>
+        </form>
     </div>
 </body>
 </html>
