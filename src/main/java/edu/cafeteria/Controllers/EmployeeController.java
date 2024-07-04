@@ -25,7 +25,7 @@ public class EmployeeController {
     @GetMapping
     public String viewOrders(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole() != Role.EMPLOYEE) {
+        if (user == null || user.getRole() != Role.employee) {
             return "redirect:/auth/login";
         }
 
@@ -37,7 +37,7 @@ public class EmployeeController {
     @PostMapping("/ready/{orderId}")
     public String markOrderReady(@PathVariable Long orderId, HttpSession session) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole() != Role.EMPLOYEE) {
+        if (user == null || user.getRole() != Role.employee) {
             return "redirect:/auth/login";
         }
 

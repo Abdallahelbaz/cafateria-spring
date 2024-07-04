@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order</title>
+</head>
+<body>
+    <h1>Order</h1>
+    <p>Name: <span th:text="${item.name}"></span></p>
+    <p>Description: <span th:text="${item.description}"></span></p>
+    <p>Price: <span th:text="${item.price}"></span></p>
+    <form action="/products/order" method="post">
+        <input type="hidden" name="itemId" th:value="${item.id}">
+        <button type="submit">Place Order</button>
+    </form>
+</body>
+</html>

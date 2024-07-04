@@ -39,12 +39,12 @@ public class ProductController {
     @GetMapping("/order/{itemId}")
     public String orderProduct(@PathVariable Long itemId, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole() == Role.EMPLOYEE) {
+        if (user == null || user.getRole() == Role.employee) {
             return "redirect:/auth/login";
         }
 
         Item item = productService.getItemById(itemId);
-        if (user.getRole() == Role.STAFF) {
+        if (user.getRole() == Role.staff) {
             item.setPrice((float) (item.getPrice() * 0.8)); // 20% discount
         }
         model.addAttribute("item", item);
@@ -54,7 +54,7 @@ public class ProductController {
     @PostMapping("/order")
     public String placeOrder(@RequestParam Long itemId, HttpSession session, Model model) {
         User user = (User) session.getAttribute("user");
-        if (user == null || user.getRole() == Role.EMPLOYEE) {
+        if (user == null || user.getRole() == Role.employee) {
             return "redirect:/auth/login";
         }
 
