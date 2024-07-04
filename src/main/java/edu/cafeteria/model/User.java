@@ -183,6 +183,12 @@ public   class User {
 	}
 
 
+	public String toStringImp() {
+		String s= " userName:"+this.getUserName()+" email:"+this.getEmail() ;
+		return null;
+	}
+
+
 
 	 
 

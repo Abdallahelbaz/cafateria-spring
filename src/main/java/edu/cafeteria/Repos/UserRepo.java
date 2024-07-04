@@ -12,4 +12,7 @@ import java.util.Optional;
 public interface UserRepo extends JpaRepository<User,Long> {
 
 	 Optional<User> findByEmailAndPassword(String email, String password);
+	 boolean existsByStaffID(StaffID staffID);//  id is taken
+	    boolean existsByEmployeeID(EmployeeID employeeID);//  id is taken
+	 
 }

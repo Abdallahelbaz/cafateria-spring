@@ -34,91 +34,30 @@ public class Employee   {
      
     private User user;
 
-    
-    
-    
-    
-    
     public Employee() {
     }
 
-
-
-
-
-
 	public Employee(  boolean active, String shift , User user) {
 		super();
-		 
 		this.active = active;
 		this.shift = shift;
-		 
 		this.user = user;
 	}
-
-
-
-
-
-
-	 
-
-
-
-
-
 	public boolean isActive() {
 		return active;
 	}
-
-
-
-
-
-
 	public void setActive(boolean active) {
 		this.active = active;
 	}
-
-
-
-
-
-
 	public String getShift() {
 		return shift;
 	}
-
-
-
-
-
-
 	public void setShift(String shift) {
 		this.shift = shift;
 	}
-
-
-
-
-
-
-	 
-
-
-
-
-
-
 	public User getUser() {
 		return user;
 	}
-
-
-
-
-
-
 	public void setUser(User user) {
 		this.user = user;
 	}
