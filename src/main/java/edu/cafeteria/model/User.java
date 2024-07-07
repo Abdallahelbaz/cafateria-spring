@@ -41,7 +41,7 @@ public   class User {
     private String phone;
 
     
-    
+    public String roleS;
     
     
     @Enumerated(EnumType.STRING)
@@ -78,6 +78,7 @@ public   class User {
 		this.role = role;
 		this.employeeID = employeeID;
 		this.staffID = staffID;
+		this.roleS=role.name();
 	}
 
 

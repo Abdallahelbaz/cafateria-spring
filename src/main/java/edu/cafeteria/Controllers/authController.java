@@ -6,6 +6,7 @@ import edu.cafeteria.model.User;
 import edu.cafeteria.Services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.ConversionFailedException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,7 @@ public class authController {
 	@Autowired
     private UserService userService;
 	 @Autowired
-     private ValidationService validationService;
+	    private ValidationService validationService;
 	 
 
 @GetMapping("/signup")
@@ -143,6 +144,9 @@ public String error(Model model) {
             }
         }
         userService.signup(user);
+        if (user.getRole() == Role.guest) {
+        	return "redirect:/HomeGuest";
+        	}else
         return "redirect:/auth/login";
     } catch (ConversionFailedException e) {
     	
@@ -171,6 +175,43 @@ public String error(Model model) {
 //    }
 }
 
+@GetMapping("/guestLogin")
+public String guestLoginForm(Model model) {
+    model.addAttribute("user", new User()); // Assuming you might want to use a form for guest login
+    return "guestLogin"; // Replace with the appropriate view name for guest login form
+}
+
+@PostMapping("/guestLogin")
+public String guestLogin(@RequestParam String email, HttpSession session,Model model) {
+//    User guestUser = new User();
+//    guestUser.setEmail(email);
+//    guestUser.setRole(Role.guest);
+//    model.addAttribute("email", guestUser.getEmail());
+//    session.setAttribute("user", guestUser);
+//    return "redirect:/HomeGuest";
+	 return userService.guestLogin(email ).map(user -> {
+	        session.setAttribute("user", user);
+	        session.setAttribute("userRole", user.getRole());
+	        System.out.println("8888888888888888888888"+user.getRole());
+	        switch (user.getRole()) {
+	            case employee:
+	                return "redirect:/HomeEmployee";
+	            case staff:
+	                return "redirect:/HomeStaff";
+	            case guest:
+	                return "redirect:/HomeGuest";
+	            default:
+	                model.addAttribute("error", "Unknown role");
+	                return "login";
+	        }
+	    }).orElseGet(() -> {
+	        model.addAttribute("error", "Invalid email or password");
+	        
+	        return "login";
+	    });
+	 
+}
+
 @GetMapping("/login")
 public String loginForm(Model model) {
     model.addAttribute("user", new User());
@@ -181,16 +222,36 @@ public String loginForm(Model model) {
 public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
     return userService.login(email, password).map(user -> {
         session.setAttribute("user", user);
-        return "redirect:/users";
+        switch (user.getRole()) {
+            case employee:
+                return "redirect:/HomeEmployee";
+            case staff:
+                return "redirect:/HomeStaff";
+            case guest:
+                return "redirect:/HomeGuest";
+            default:
+                model.addAttribute("error", "Unknown role");
+                return "login";
+        }
     }).orElseGet(() -> {
         model.addAttribute("error", "Invalid email or password");
         return "login";
     });
 }
 
-@GetMapping("/logout")
+
+@PostMapping("/logout")
 public String logout(HttpSession session) {
     session.invalidate();
     return "redirect:/auth/login";
 }
+
+@PostMapping("/auth/deleteUser")
+@ResponseBody
+public ResponseEntity<?> deleteUser(@ModelAttribute User user) {
+    userService.deleteUser(user.getId());
+    return ResponseEntity.ok("User deleted");
+}
+
+
 }
