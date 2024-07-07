@@ -7,9 +7,13 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Item")
  
-public abstract class Item {
+public   class Item {
 
-    public Long getId() {
+    public Item() {
+		 
+	}
+
+	public Long getId() {
 		return id;
 	}
 
@@ -32,14 +36,26 @@ public abstract class Item {
 
     @Column(name = "price")
     private float price;
+    
+    @Column(name = "photoUrl")
+    private String photoUrl;
 
-   public Item(  String name, String description, float price) {
+   public Item(  String name, String description, float price,String photoUrl) {
 		super();
 		 
 		this.name = name;
 		this.description = description;
 		this.price = price;
+		this.photoUrl = photoUrl;
 	}
+
+public String getPhotoUrl() {
+	return photoUrl;
+}
+
+public void setPhotoUrl(String photoUrl) {
+	this.photoUrl = photoUrl;
+}
 
 public String getName() {
 	return name;

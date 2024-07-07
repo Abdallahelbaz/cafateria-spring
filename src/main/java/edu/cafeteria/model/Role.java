@@ -5,4 +5,5 @@ public enum Role {
 	guest,
     staff,
     employee
+    
 }

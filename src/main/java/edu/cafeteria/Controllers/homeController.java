@@ -1,37 +1,48 @@
 package edu.cafeteria.Controllers;
 
-import edu.cafeteria.model.Role;
-import edu.cafeteria.model.User;
-import edu.cafeteria.Services.*;
+import edu.cafeteria.Services.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import javax.servlet.http.HttpSession;
 
 @Controller
-//@RequestMapping("/auth")
 public class homeController {
 
-	
-	@GetMapping
+    @Autowired
+    private ItemService itemService;
+
+    @GetMapping
     public String home(Model model) {
-		 return "redirect:/auth/login";
+        return "redirect:/auth/login";
     }
-	
-	@GetMapping("/HomeAdmin")
-    public String homeAdmin(Model model) {
-		 return "HomeAdmin";
+
+    @GetMapping("/HomeStaff")
+    public String homeAdmin(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+        model.addAttribute("items2", itemService.getAllItems());
+        return "HomeStaff";
     }
-	@GetMapping("/HomeEmployee")
-    public String HomeEmployee(Model model) {
-		 return "HomeEmployee";
+
+    @GetMapping("/HomeEmployee")
+    public String HomeEmployee(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+        return "HomeEmployee";
     }
-	@GetMapping("/HomeGuest")
-    public String HomeGuest(Model model) {
-		 return "HomeGuest";
+
+    @GetMapping("/HomeGuest")
+    public String HomeGuest(Model model, HttpSession session) {
+        if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+        
+        model.addAttribute("items", itemService.getAllItems());
+        return "HomeGuest";
     }
 }

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Item Form</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <h1 th:text="${item.id} != null ? 'Edit Item' : 'Create Item'">Create Item</h1>
+    
+    <form th:action="@{/items}" th:object="${item}" method="post" enctype="multipart/form-data">
+        <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{name}">Name Error</p>
+        </div>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" th:field="*{name}" class="form-control" required>
+        </div>
+
+        <div th:if="${#fields.hasErrors('price')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{price}">Price Error</p>
+        </div>
+        <div class="form-group">
+            <label for="price">Price:</label>
+            <input type="text" id="price" name="price" th:field="*{price}" class="form-control" required>
+        </div>
+
+        <div th:if="${#fields.hasErrors('photoUrl')}" class="alert alert-danger" role="alert">
+            <p th:errors="*{photoUrl}">Photo URL Error</p>
+        </div>
+        <div class="form-group">
+            <label for="photoUrl">Photo URL:</label>
+            
+             <select id="photoUrl" name="photoUrl" th:field="*{photoUrl}" class="form-control" required>
+                <option value="/images/turk.png" th:selected="${item.photoUrl == 'coffee'}">Coffee</option>
+                <option value="/images/Pizza.png" th:selected="${item.photoUrl == 'pizza'}">Pizza</option>
+                 <option value="/images/cappuchino.png" th:selected="${item.photoUrl == 'coffee'}">cappuchino</option>
+                <option value="/images/cheesecake.png" th:selected="${item.photoUrl == 'pizza'}">cheesecake</option>
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Save</button>
+        <a th:href="@{/items}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+</body>
+</html>
