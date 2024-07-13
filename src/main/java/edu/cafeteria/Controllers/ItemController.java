@@ -36,6 +36,7 @@ public class ItemController {
 
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
+        model.addAttribute("userName", user.getUserName());
         model.addAttribute("user", user);
         return "items";
 //    	 User user = (User) session.getAttribute("user");
@@ -71,12 +72,13 @@ public class ItemController {
             return "redirect:/auth/login";
         }
 
-        Item item = itemService.getItemById(itemId);
+       List<Item>  items = itemService.getAllItems( );
         Order order = new Order();
-        order.setItem(item);
+        order.setItems(items);
         order.setUser(user);
         order.setOrderDate(   new Date(System.currentTimeMillis()));
-       
+        order.setStatus("NEW");
+        
         orderService.save(order);
 
         model.addAttribute("order", order);

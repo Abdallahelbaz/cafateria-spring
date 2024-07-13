@@ -29,8 +29,22 @@ public class OrderService {
     public void markAsReady(Order order) {
         // Logic to mark the order as ready
         // This could be a status field in the Order entity
-        order.setStatus(true);
+        order.setStatus("READY");
         orderRepository.save(order);
     }
+    public List<Order> getOrdersByStatus(String status) {
+        return orderRepository.findByStatus(status);
+    }
+
+    public void updateOrderStatus(Long orderId, String status) {
+        Order order = orderRepository.findById(orderId).orElseThrow(() -> new IllegalArgumentException("Invalid order Id:" + orderId));
+        order.setStatus(status);
+        orderRepository.save(order);
+    }
+
+//	public List<Order> getAllOrdersByUserID(Long id) {
+//		List<Order> L=orderRepository.getAllOrdersByUserID(  id);
+//		return L;
+//	}
 }
 

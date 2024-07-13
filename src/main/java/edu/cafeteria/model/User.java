@@ -59,10 +59,39 @@ public   class User {
     
     
     
-    
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Cart cart;
 	 
 
 	 
+
+	public Cart getCart() {
+		return cart;
+	}
+
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+
+	public User(String firstName, String lastName, Date birthDate, String email, String userName, String password,
+			String phone, String roleS, Role role, EmployeeID employeeID, StaffID staffID, Cart cart) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.birthDate = birthDate;
+		this.email = email;
+		this.userName = userName;
+		this.password = password;
+		this.phone = phone;
+		this.roleS = roleS;
+		this.role = role;
+		this.employeeID = employeeID;
+		this.staffID = staffID;
+		this.cart = cart;
+	}
+
 
 	public User(  String firstName, String lastName, Date birthDate, String email, String userName,
 			String password, String phone, Role role, EmployeeID employeeID, StaffID staffID) {
