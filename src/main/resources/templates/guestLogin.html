@@ -1,0 +1,41 @@
+  
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Guest Login</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+		
+           <div class="text-center mb-4">
+            <img src="/images/home_logo.png" th:src="@{/images/home_logo.png}" alt="Logo" class="img-fluid" style="max-width: 400px;">
+        </div> 
+        <h1 class="mb-4 text-center">Login</h1>
+        <form action="/auth/guestLogin" method="post">
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" class="form-control" required>
+            </div>
+          
+            <button type="submit" class="btn btn-primary btn-block">Login as Guest</button>
+            
+
+        </form>
+          <div class="text-center mt-3">
+            <a href="/" class="btn btn-warning">Back</a>
+        </div>
+        
+    </div>
+</body>
+</html>
+ 
+         
+       
+ 
+
+
+
+
+

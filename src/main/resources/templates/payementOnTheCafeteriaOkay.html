@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+     <div class="container mt-5">
+        <h1>Payment Confirmed</h1>
+        <p>Your payment at the cafeteria was successful. Enjoy your meal!</p>
+        
+       <!-- <a href="/orders/staffOrders" class="btn btn-success">My orders</a>-->
+         
+         
+         
+         <th:block th:if="${userRole == 'staff'}">
+            
+             <a th:href="@{/orders/staffOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders</a>
+        </th:block>
+        <th:block th:if="${userRole == 'guest'}"> 
+            <a th:href="@{/orders/guestOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders</a>
+        </th:block>
+       
+        <th:block th:if="${userRole == 'staff'}">
+             
+            <form action="/HomeStaff" method="post">
+                <button type="submit" class="  btn btn-warning">back</button>
+            </form>   
+        </th:block>
+        <th:block th:if="${userRole == 'guest'}">
+       
+          
+             <form action="/HomeGuest" method="post">
+                <button type="submit" class="  btn btn-warning">back</button>
+            </form>   
+        </th:block>
+         
+        
+         
+			
+             
+            
+        <form action="/auth/logout" method="post">
+                <button type="submit" class="  btn btn-danger">Logout</button>
+            </form>
+    </div>
+</body>
+</html>

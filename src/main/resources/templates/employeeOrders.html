@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Staff Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1>Staff Orders</h1>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Order ID</th>
+                    <th>Customer</th>
+                    <th>Items</th>
+                    <th>Total Price</th>
+                    <th>State</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Example of an order row -->
+                <tr>
+                    <td>1</td>
+                    <td>John Doe</td>
+                    <td>Sandwich, Coffee</td>
+                    <td>$10.00</td>
+                    <td><span class="badge badge-warning">Received</span></td>
+                    <td>
+                        <a href="/orders/1/prepare" class="btn btn-primary btn-sm">Prepare</a>
+                        <a href="/orders/1/ready" class="btn btn-success btn-sm">Ready</a>
+                    </td>
+                </tr>
+                <!-- Add more orders as needed -->
+                <tr>
+                    <td>2</td>
+                    <td>Jane Smith</td>
+                    <td>Salad, Juice</td>
+                    <td>$12.50</td>
+                    <td><span class="badge badge-info">Preparing</span></td>
+                    <td>
+                        <a href="/orders/2/ready" class="btn btn-success btn-sm">Ready</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Bob Johnson</td>
+                    <td>Pizza, Soda</td>
+                    <td>$15.00</td>
+                    <td><span class="badge badge-success">Ready</span></td>
+                    <td>
+                        <!-- No actions for ready orders -->
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

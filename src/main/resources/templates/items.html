@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Items</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .item-card {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container mt-5">
+	<h1>welcome [[${userName}]]</h1>
+    <div class="d-flex justify-content-between align-items-center mb-4">
+       
+        <h1>Items</h1>
+        <a href="/items/new" class="btn btn-success">Add New Item</a>
+        <a href="/HomeEmployee" class="btn btn-primary">Back</a>
+    </div>
+
+    <div class="row">
+        <div th:each="item : ${items}" class="col-md-4 item-card">
+            <div class="card">
+                <img th:src="@{${item.photoUrl}}" class="card-img-top" alt="Item Image">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${item.name}">Item Name</h5>
+                    <p class="card-text">Price: <span th:text="${item.price}">Item Price</span></p>
+                   <!-- <a th:href="@{/items/order/{itemId}(itemId=${item.id})}" class="btn btn-primary">Add to Cart</a>-->
+                    <a th:href="@{/items/edit/{id}(id=${item.id})}" class="btn btn-warning">Edit</a>
+                    <a th:href="@{/items/delete/{id}(id=${item.id})}" class="btn btn-danger">Delete</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="/cart" class="btn btn-primary">Go to Cart</a>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!--<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Staff</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 15vw;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+		 <h1>welcome Staff: [[${userNameSTF}]]</h1>
+        <div class="d-flex justify-content-between">
+            <form action="/auth/logout" method="post">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            <form class="form-inline" action="/search" method="get">
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search item" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            <a href="/cart" class="btn btn-primary">Go to Cart</a>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4" th:each="item : ${items2}">
+                <div class="card mb-4 shadow-sm">
+                    <img th:src="@{${item.photoUrl}}" class="card-img-top" alt="Item Photo">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${item.name}">Item Name</h5>[[${#session.getAttribute('user').role}]]
+                        <p class="card-text">
+                            <span th:if="${#session.getAttribute('user') == null or #session.getAttribute('user').role != 'staff'}" th:text="${item.price} + ' USD'">Price</span>
+                            <span th:if="${#session.getAttribute('user') != null and #session.getAttribute('user').role == 'staff'}" >
+                                <del th:text="${item.price} + ' USD'"></del>
+                                <span th:text="${item.price * 0.8} + ' USD'"></span>
+                                <span class="text-danger">-20% off</span>
+                            </span>
+                        </p>
+                        <form action="/cart/add" method="post">
+                            <input type="hidden" name="itemId" th:value="${item.id}">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+-->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home - Staff</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .card-img-top {
+            width: 100%;
+            height: 15vw;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>Welcome Staff: [[${userNameSTF}]]</h1>
+        <div class="d-flex justify-content-between">
+            <form action="/auth/logout" method="post">
+                <button type="submit" class="btn btn-danger">Logout</button>
+            </form>
+            <form class="form-inline" action="/search" method="get">
+                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search item" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                  
+            </form>
+            <a th:href="@{/orders/staffOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders</a>
+            
+            <a href="/cart" class="btn btn-primary">Go to Cart</a>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-4" th:each="item : ${items2}">
+                <div class="card mb-4 shadow-sm">
+                    <img th:src="@{${item.photoUrl}}" class="card-img-top" alt="Item Photo">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${item.name}">Item Name</h5>
+                        <p class="card-text">
+                            <span>
+                                <del th:text="${item.price} + ' USD'"></del>
+                                <span th:text="${item.price * 0.8} + ' USD'"></span>
+                                <span class="text-danger">-20% off</span>
+                            </span>
+                        </p>
+                        <form action="/cart/add" method="post">
+                            <input type="hidden" name="itemId" th:value="${item.id}">
+                            <button type="submit" class="btn btn-primary">Add to Cart</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
