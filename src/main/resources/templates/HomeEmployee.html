@@ -14,33 +14,22 @@
 </head>
 <body>
     <div class="container mt-5">
+		 <h1>welcome Employee: [[${userNameEmpl}]]</h1>
         <div class="d-flex justify-content-between">
             <form action="/auth/logout" method="post">
                 <button type="submit" class="btn btn-danger">Logout</button>
             </form>
-            <form class="form-inline" action="/search" method="get">
-                <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search item" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
-            <a href="/cart" class="btn btn-primary">Go to Cart</a>
+             
+         <!--   <a href="/cart" class="btn btn-primary">Go to Cart</a>-->
              <a href="/items" class="btn btn-primary">Items</a>
+             
+            
+            <a href="/orders/new" class="btn btn-danger">New Orders</a>
+            <a href="/orders/preparation" class="btn btn-info">On Preparation Orders</a>
+            <a href="/orders/ready" class="btn btn-success">Ready to Take Orders</a>
         </div>
 
-        <div class="row mt-4">
-            <div class="col-md-4" th:each="item : ${items}">
-                <div class="card mb-4 shadow-sm">
-                    <img th:src="@{${item.photoUrl}}" class="card-img-top" alt="Item Photo">
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${item.name}">Item Name</h5>
-                        <p class="card-text" th:text="${item.price} + ' USD'">Price</p>
-                        <form action="/cart/add" method="post">
-                            <input type="hidden" name="itemId" th:value="${item.id}">
-                           <!-- <button type="submit" class="btn btn-primary">Add to Cart</button>-->
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+        
     </div>
 
     <script>

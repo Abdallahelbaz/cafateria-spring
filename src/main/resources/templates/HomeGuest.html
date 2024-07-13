@@ -14,6 +14,7 @@
 </head>
 <body>
     <div class="container mt-5">
+		<h1>welcome Guest: [[${MaskedEMail}]]</h1>
         <div class="d-flex justify-content-between">
             <form action="/auth/logout" method="post">
                 <button type="submit" class="btn btn-danger">Logout</button>
@@ -22,6 +23,8 @@
                 <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search item" aria-label="Search">
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
+             <a th:href="@{/orders/guestOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders</a>
+             
             <a href="/cart" class="btn btn-primary">Go to Cart</a>
         </div>
 
@@ -37,7 +40,7 @@
                             </span>
                         <h5 class="card-title" th:text="${item.name}">Item Name</h5>
                         <p class="card-text" th:text="${item.price} + ' USD'">Price</p>
-                        <form action="/cart/add" method="post">
+                        <form action="/cart/addToGuest" method="post">
                             <input type="hidden" name="itemId" th:value="${item.id}">
                             <button type="submit" class="btn btn-primary">Add to Cart</button>
                         </form>
