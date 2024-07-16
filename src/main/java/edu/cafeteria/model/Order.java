@@ -36,7 +36,10 @@ private User user;
     @Column(name = "status")
     private String status;
 
-
+    @Column(name = "rating")
+    private Integer rating; 
+    
+    
 	public Order() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -67,6 +70,20 @@ private User user;
 		this.totalPrice = totalPrice;
 		this.user = user;
 		this.status = status;
+	}
+
+
+
+
+
+	public Order(Date orderDate, List<Item> items, Double totalPrice, User user, String status, Integer rating) {
+		super();
+		this.orderDate = orderDate;
+		this.items = items;
+		this.totalPrice = totalPrice;
+		this.user = user;
+		this.status = status;
+		this.rating = rating;
 	}
 
 
@@ -130,6 +147,22 @@ private User user;
 
 	public void setTotalPrice(Double totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+
+
+
+
+	public Integer getRating() {
+		return rating;
+	}
+
+
+
+
+
+	public void setRating(Integer rating) {
+		this.rating = rating;
 	}
     
     

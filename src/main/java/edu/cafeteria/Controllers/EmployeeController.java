@@ -44,7 +44,7 @@ public class EmployeeController {
         Order order = orderService.getOrderById(orderId);
        
         orderService.markAsReady(order);
-        emailService.sendOrderReadyNotification(order.getUser().getEmail());
+        emailService.sendOrderReadyNotification(order.getId() );
 
         return "redirect:/employee/orders";
     }
@@ -54,7 +54,7 @@ public class EmployeeController {
         Order order = orderService.getOrderById(orderId);
         if (order != null) {
             orderService.markAsReady(order);
-            emailService.sendOrderReadyNotification(order.getUser().getEmail());
+            emailService.sendOrderReadyNotification(order.getId() );
         }
         return "redirect:/employee/orders";
     }

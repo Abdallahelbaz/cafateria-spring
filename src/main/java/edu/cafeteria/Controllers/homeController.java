@@ -1,6 +1,8 @@
 package edu.cafeteria.Controllers;
 
 import edu.cafeteria.Services.ItemService;
+import edu.cafeteria.Services.NotificationService;
+import edu.cafeteria.model.Role;
 import edu.cafeteria.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,14 +16,31 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class homeController {
 	String MaskedEMail;
+	 @Autowired
+	    private NotificationService notificationService;
     @Autowired
     private ItemService itemService;
 	public String userNameEmpl;
 	public String userNameSTF;
 
     @GetMapping
-    public String home(Model model) {
-        return "redirect:/auth/login";
+    public String home(Model model, HttpSession session) {
+    	User user = (User) session.getAttribute("user");
+    	if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+    	else if(user.getRole() == Role.staff)  {
+            return "redirect:/auth/login";
+        }
+    	else if(user.getRole() == Role.staff)  {
+            return "redirect:/auth/login";
+        }
+    	else if(user.getRole() == Role.staff)  {
+            return "redirect:/auth/login";
+        }else {
+        	 return "redirect:/auth/login";
+        }
+         
     }
 
     @GetMapping("/HomeStaff")
@@ -30,6 +49,8 @@ public class homeController {
             return "redirect:/auth/login";
         }
         Long idd=(Long) ((User) session.getAttribute("user")).getId();
+        int notificationCount = notificationService.countNotificationsByUserId(idd);
+        model.addAttribute("notificationCount", notificationCount);
        
         model.addAttribute("userID", idd);
         model.addAttribute("userNameSTF",userNameSTF  );
@@ -43,7 +64,11 @@ public class homeController {
             return "redirect:/auth/login";
         }
         
+        
         Long idd=(Long) ((User) session.getAttribute("user")).getId();
+        int notificationCount = notificationService.countNotificationsByUserId(idd);
+        model.addAttribute("notificationCount", notificationCount);
+       
         
         model.addAttribute("userID", idd);
         

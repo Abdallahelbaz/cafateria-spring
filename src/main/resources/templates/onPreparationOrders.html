@@ -1,33 +1,84 @@
- <!DOCTYPE html>
+
+<!--<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Orders in Preparation</title>
+    <title>New Orders</title>
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <div class="container mt-5">
-        <h1>Orders in Preparation</h1> <a href="/HomeEmployee " class="btn btn-warning">Back</a>
-        <div th:if="${orders.isEmpty()}">
-            <p>No orders in preparation.</p>
-        </div>
-        <div th:each="order : ${orders}">
-            <div class="card mb-4 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title">Order #<span th:text="${order.id}">Order ID</span></h5>
-                    <p class="card-text">Customer: <span th:text="${order.customerName}">Customer Name</span></p>
-                    <p class="card-text">Items:</p>
-                    <ul>
-                        <li th:each="item : ${order.items}" th:text="${item.name} + ' x ' + ${item.quantity}">Item</li>
-                    </ul>
-                    <form action="/orders/ready" method="post">
-                        <input type="hidden" name="orderId" th:value="${order.id}">
-                        <button type="submit" class="btn btn-primary">Move to Ready to Take</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-       
+    <div class="container">
+        <h2>New Orders</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Order Date</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>User</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}">1</td>
+                    <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">01-01-2021 10:00</td>
+                    <td th:text="${order.totalPrice}">100.00</td>
+                    <td th:text="${order.status}">NEW</td>
+                    <td th:text="${order.user.email}">MAIL</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Preparing Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+		<a href="/HomeEmployee" class="btn btn-primary">Back</a>
+        <h2>Preparing Orders</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Order Date</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>User</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}">1</td>
+                    <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">01-01-2021 10:00</td>
+                    <td th:text="${order.totalPrice}">100.00</td>
+                    <td th:text="${order.status}">NEW</td>
+                    <td th:text="${order.user.email}">email</td>
+                    <!--<td>
+                        <ul>
+                            <li th:each="item : ${order.items}">
+                                <span th:text="${item.name}">Item Name</span> - 
+                                <span th:text="${item.price}">Item Price</span>
+                            </li>
+                        </ul>
+                    </td>-->
+                    <td>
+                        <form th:action="@{/orders/setReady/{id}(id=${order.id})}" method="post">
+                            <button type="submit" class="btn btn-warning">Set Ready</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

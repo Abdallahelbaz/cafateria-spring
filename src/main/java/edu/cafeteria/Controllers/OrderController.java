@@ -32,6 +32,13 @@ public class OrderController {
     private OrderConverter orderConverter;
     @Autowired
     private OrderRepository orderRepository;
+    @Autowired
+    private UserService userService; 
+    @Autowired
+    private EmailService emailService; 
+    
+    
+    
     public List <Item> items;
     
     @GetMapping("/new") 
@@ -72,7 +79,7 @@ public class OrderController {
             }
          	
             
-            
+            model.addAttribute("Userid", user.getId());
            model.addAttribute("orders", orderService.getOrdersByStatus("READY"));
            return "readyToTakeOrders";
        }
@@ -131,12 +138,56 @@ public class OrderController {
     
     @PostMapping("/setReady/{id}")
     public String setOrderReady(@PathVariable Long id) {
+    	Order o =orderService.getOrderById(id);
+    	
         orderService.updateOrderStatus(id, "READY");
+        emailService.sendOrderReadyNotification(o.getId());
+        
         return "redirect:/orders/preparation";
     }
+    @PostMapping("/setToken/{id}")
+    public String setOrderTOKEN(@PathVariable Long id) {
+        orderService.updateOrderStatus(id, "TOKEN");
+        return "redirect:/orders/ready";
+    }
+    @PostMapping("/NOTIFY/{idClient}/{idOrder}")
+    public String NOTIFYClient(@PathVariable Long  idClient,@PathVariable Long idOrder) {
+       System.out.println("2222222222222222222222222222222222222222222222222222222"
+       		+ "cleint id:"+idClient+" notified about the order : "+idOrder);
+       //
+       String email=  userService.findById(idClient).get().getEmail();
+       
+       emailService.sendOrderReadyNotification(idOrder);
+       //
+       System.out.println("7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777"
+          		+ "cleint id:"+idClient+" notified about the order : "+idOrder);
+        return "redirect:/orders/ready";
+    }
     
-    
-    
+    @PostMapping("/feedback/{orderId}")
+    public String submitFeedback(@PathVariable Long orderId, @RequestParam int rating, HttpSession session) {
+        Order order = orderService.findOrderById(orderId).get();
+        order.setRating(rating);
+        orderService.save(order);
+        
+        User user = (User) session.getAttribute("user");
+        session.setAttribute("user",user);
+//        if (  user.getRole() == Role.guest  ) {
+//        	 Long idd=(Long) ((User) session.getAttribute("user")).getId();
+//             
+//             model.addAttribute("userID", idd);
+//             
+//            model.addAttribute("MaskedEMail",maskEmail(MaskedEMail)  ); 
+//             model.addAttribute("items", itemService.getAllItems());
+//        	return "HomeGuest"; 
+//        } else if(user.getRole() == Role.staff)  {
+//        	return "HomeStaff";
+//        }else {
+//        	return "redirect:/auth/login";
+//        }
+        return "redirect:/";
+         
+    } 
 //    @GetMapping("/delete/{id}")
 //    public String deleteOrder(@PathVariable("id") Long id, Model model) {
 //        Optional<Order> order = orderRepository.findById(id);
