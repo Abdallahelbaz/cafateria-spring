@@ -34,7 +34,6 @@ public class OrderController {
     private OrderRepository orderRepository;
     public List <Item> items;
     
-<<<<<<< HEAD
     @GetMapping("/new") 
     public String viewNewOrders(Model model,  HttpSession session) {
     	
@@ -43,25 +42,40 @@ public class OrderController {
            return "redirect:/auth/login";
        }
     	
-=======
-    @GetMapping("/new")
-    public String viewNewOrders(Model model) {
->>>>>>> cad10c2ca1e0c45d7a902b48e4576ba1cf0493c0
         model.addAttribute("orders", orderService.getOrdersByStatus("NEW"));
         return "newOrders";
     }
 
     @GetMapping("/preparation")
-    public String viewOnPreparationOrders(Model model) {
+    public String viewOnPreparationOrders(Model model,  HttpSession session) {
+    	
+    	 User user = (User) session.getAttribute("user");
+         if (user == null || user.getRole() == Role.guest|| user.getRole() == Role.staff) {
+             return "redirect:/auth/login";
+         }
+      	
+         
+         
+         
         model.addAttribute("orders", orderService.getOrdersByStatus("PREPARATION"));
         return "onPreparationOrders";
     }
 
+
     @GetMapping("/ready")
-    public String viewReadyToTakeOrders(Model model) {
-        model.addAttribute("orders", orderService.getOrdersByStatus("READY"));
-        return "readyToTakeOrders";
-    }
+       public String viewReadyToTakeOrders(Model model,  HttpSession session) {
+       	
+       	
+       	 User user = (User) session.getAttribute("user");
+            if (user == null || user.getRole() == Role.guest|| user.getRole() == Role.staff) {
+                return "redirect:/auth/login";
+            }
+         	
+            
+            
+           model.addAttribute("orders", orderService.getOrdersByStatus("READY"));
+           return "readyToTakeOrders";
+       }
 
     @PostMapping("/prepare")
     public String moveToPreparation(@RequestParam Long orderId) {
@@ -109,16 +123,17 @@ public class OrderController {
         }
     }
 
-<<<<<<< HEAD
     @PostMapping("/setPreparing/{id}")
     public String setOrderPreparing(@PathVariable Long id) {
-        orderService.updateOrderStatus(id, "PREPARING");
+        orderService.updateOrderStatus(id, "PREPARATION");
         return "redirect:/orders/new";
     }
-=======
     
->>>>>>> cad10c2ca1e0c45d7a902b48e4576ba1cf0493c0
-    
+    @PostMapping("/setReady/{id}")
+    public String setOrderReady(@PathVariable Long id) {
+        orderService.updateOrderStatus(id, "READY");
+        return "redirect:/orders/preparation";
+    }
     
     
     

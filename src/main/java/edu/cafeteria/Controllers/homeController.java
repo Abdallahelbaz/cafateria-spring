@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
 
@@ -50,8 +51,24 @@ public class homeController {
         model.addAttribute("items", itemService.getAllItems());
         return "HomeGuest";
     }
+     
+     @GetMapping("/HomeGuest/query")
+     public String HomeGuestSearch(@RequestParam("query") String query,Model model, HttpSession session) {
+    	 
+         if (session.getAttribute("user") == null) {
+             return "redirect:/auth/login";
+         }
+         
+         Long idd=(Long) ((User) session.getAttribute("user")).getId();
+         
+         model.addAttribute("userID", idd);
+         
+        model.addAttribute("MaskedEMail",maskEmail(MaskedEMail)  ); 
+         model.addAttribute("items", itemService.searchItemsByName(query));
+         return "HomeGuest";
+     }
     
-    
+     
     @GetMapping("/HomeEmployee")
     public String HomeEmployee(Model model, HttpSession session) {
         if (session.getAttribute("user") == null) {

@@ -9,7 +9,7 @@
         <li th:each="order : ${orders}">
             <p>Order ID: <span th:text="${order.id}"></span></p>
             <p>User: <span th:text="${order.user.userName}"></span></p>
-            <p>Item: <span th:text="${order.item.name}"></span></p>
+            <!--<p>Item: <span th:text="${order.item.name}"></span></p>-->
             <p>Order Date: <span th:text="${order.orderDate}"></span></p>
             <form action="/employee/orders/ready" method="post">
                 <input type="hidden" name="orderId" th:value="${order.id}">
