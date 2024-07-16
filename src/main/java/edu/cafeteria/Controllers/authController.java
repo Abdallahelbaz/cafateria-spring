@@ -18,8 +18,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/auth")
 public class authController {
-
-	
+	@Autowired
+    private 	homeController homecontrollerVAR;
 	@Autowired
     private UserService userService;
 	 @Autowired
@@ -192,14 +192,18 @@ public String guestLogin(@RequestParam String email, HttpSession session,Model m
 	 return userService.guestLogin(email ).map(user -> {
 	        session.setAttribute("user", user);
 	        session.setAttribute("userRole", user.getRole());
-	        System.out.println("8888888888888888888888"+user.getRole());
+	        
 	        switch (user.getRole()) {
 	            case employee:
 	                return "redirect:/HomeEmployee";
 	            case staff:
 	                return "redirect:/HomeStaff";
 	            case guest:
-	                return "redirect:/HomeGuest";
+	                 {  
+	                	  homecontrollerVAR.MaskedEMail=user.getEmail();
+	                	  return "redirect:/HomeGuest"; 
+	                   
+	            	 }
 	            default:
 	                model.addAttribute("error", "Unknown role");
 	                return "login";
@@ -224,9 +228,17 @@ public String login(@RequestParam String email, @RequestParam String password, H
         session.setAttribute("user", user);
         switch (user.getRole()) {
             case employee:
-                return "redirect:/HomeEmployee";
+            {
+            	homecontrollerVAR.userNameEmpl=user.getUserName();
+            return "redirect:/HomeEmployee";
+            }
+                
             case staff:
+            {
+            	homecontrollerVAR.userNameSTF=user.getUserName();
                 return "redirect:/HomeStaff";
+            }
+                
             case guest:
                 return "redirect:/HomeGuest";
             default:

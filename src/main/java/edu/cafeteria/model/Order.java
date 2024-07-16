@@ -18,65 +18,56 @@ public class Order {
     private Long id;
 
     
-
-    @ManyToOne
-    @JoinColumn(name = "technician_id", referencedColumnName = "id")
-    private Item item;
-
-    @ManyToOne
-    @JoinColumn(name = "tache_id", referencedColumnName = "id")
-    private User user;
-
-    @Column(name = "orderDate")
+@Column(name = "orderDate")
     private Date orderDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "payment_id", referencedColumnName = "id")
-    private Payment payment;
+@OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+private List< Item> items = new ArrayList<>();
+
+@Column(name = "totalPrice")
+private Double totalPrice;
+
+
+@ManyToOne
+@JoinColumn(name = "user_id", referencedColumnName = "id")
+private User user;
+ 
 
     @Column(name = "status")
-    private boolean status;
-    
-    
-    
-    
-    
-    public Order(Long id, Item item, User user, Date orderDate, Payment payment,boolean status) {
-		super();
-		this.id = id;
-		this.item = item;
-		this.user = user;
-		this.orderDate = orderDate;
-		this.payment = payment;
-		this.status = status;
-	}
-
-
-
-
-
-
-	public boolean isStatus() {
-		return status;
-	}
-
-
-
-
-
-
-	public void setStatus(boolean status) {
-		this.status = status;
-	}
-
-
-
-
+    private String status;
 
 
 	public Order() {
-    }
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
+
+	 
+
+
+	public Order(Date orderDate, List<Item> items, Double totalPrice, User user, String status) {
+		super();
+		this.orderDate = orderDate;
+		this.items = items;
+		this.totalPrice = totalPrice;
+		this.user = user;
+		this.status = status;
+	}
+
+
+
+
+
+	public Order(Long id, Date orderDate, List<Item> items, Double totalPrice, User user, String status) {
+		super();
+		this.id = id;
+		this.orderDate = orderDate;
+		this.items = items;
+		this.totalPrice = totalPrice;
+		this.user = user;
+		this.status = status;
+	}
 
 
 
@@ -87,53 +78,9 @@ public class Order {
 	}
 
 
-
-
-
-
 	public void setId(Long id) {
 		this.id = id;
 	}
-
-
-
-
-
-
-	public Item getItem() {
-		return item;
-	}
-
-
-
-
-
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-
-
-
-
-
-
-	public User getUser() {
-		return user;
-	}
-
-
-
-
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-
-
-
 
 
 	public Date getOrderDate() {
@@ -141,35 +88,51 @@ public class Order {
 	}
 
 
-
-
-
-
 	public void setOrderDate(Date orderDate) {
 		this.orderDate = orderDate;
 	}
 
 
-
-
-
-
-	public Payment getPayment() {
-		return payment;
+	public List<Item> getItems() {
+		return items;
 	}
 
 
-
-
-
-
-	public void setPayment(Payment payment) {
-		this.payment = payment;
+	public void setItems(List<Item> items) {
+		this.items = items;
 	}
 
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+
+	public String getStatus() {
+		return status;
+	}
+
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+
+	public Double getTotalPrice() {
+		return totalPrice;
+	}
+
+
+	public void setTotalPrice(Double totalPrice) {
+		this.totalPrice = totalPrice;
+	}
     
-
+    
+    
      
-
-    
 }

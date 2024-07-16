@@ -36,6 +36,7 @@ public class ItemController {
 
         List<Item> items = itemService.getAllItems();
         model.addAttribute("items", items);
+        model.addAttribute("userName", user.getUserName());
         model.addAttribute("user", user);
         return "items";
 //    	 User user = (User) session.getAttribute("user");
@@ -71,12 +72,13 @@ public class ItemController {
             return "redirect:/auth/login";
         }
 
-        Item item = itemService.getItemById(itemId);
+       List<Item>  items = itemService.getAllItems( );
         Order order = new Order();
-        order.setItem(item);
+        order.setItems(items);
         order.setUser(user);
         order.setOrderDate(   new Date(System.currentTimeMillis()));
-       
+        order.setStatus("NEW");
+        
         orderService.save(order);
 
         model.addAttribute("order", order);
@@ -105,10 +107,10 @@ public class ItemController {
     public String editItemForm(@PathVariable Long id, Model model) {
         Item item = itemService.getItemById(id);
         model.addAttribute("item", item);
-        return "item_form";
+        return "itemUpdateForm";
     }
 
-    @PostMapping("/update/{id}")
+    @PostMapping("/edit/{id}")
     public String updateItem(@PathVariable Long id, @ModelAttribute("item") Item item) {
 //        Item existingItem = itemService.getItemById(id);
 //        if (existingItem != null) {
@@ -121,7 +123,7 @@ public class ItemController {
 //        }
     	  itemService.updateItem(id, item);
     	  
-        return "/items/delete/"+id;
+    	  return "redirect:/items";//  return "/items/delete/"+id;
     }
 
     @GetMapping("/delete/{id}")

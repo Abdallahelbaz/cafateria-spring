@@ -39,7 +39,9 @@ public   class Item {
     
     @Column(name = "photoUrl")
     private String photoUrl;
-
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
    public Item(  String name, String description, float price,String photoUrl) {
 		super();
 		 
@@ -48,6 +50,15 @@ public   class Item {
 		this.price = price;
 		this.photoUrl = photoUrl;
 	}
+
+public Item(String name, String description, float price, String photoUrl, Order order) {
+	super();
+	this.name = name;
+	this.description = description;
+	this.price = price;
+	this.photoUrl = photoUrl;
+	this.order = order;
+}
 
 public String getPhotoUrl() {
 	return photoUrl;
@@ -79,6 +90,22 @@ public float getPrice() {
 
 public void setPrice(float price) {
 	this.price = price;
+}
+
+public Order getCart() {
+	return order;
+}
+
+public void setCart(Order order) {
+	this.order = order;
+}
+
+public Order getOrder() {
+	return order;
+}
+
+public void setOrder(Order order) {
+	this.order = order;
 }
 
 }

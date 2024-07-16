@@ -1,5 +1,7 @@
 package edu.cafeteria.Repos;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -18,6 +20,8 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	    @Transactional
 	    @Query("UPDATE Item i SET i.name = :name, i.photoUrl = :photoUrl, i.price = :price WHERE i.id = :id")
 	    void updateItem(@Param("id") Long id, @Param("name") String name, @Param("photoUrl") String photoUrl, @Param("price") float price);
+
+	 List<Item> findByNameContainingIgnoreCase(String name);
 	}
  
 
