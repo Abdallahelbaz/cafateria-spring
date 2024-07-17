@@ -25,7 +25,8 @@ public class ItemController {
     
     @Autowired
     private OrderService orderService;
-    
+    @Autowired
+    private LogService logService;
 
     @GetMapping
     public String viewProducts(Model model, HttpSession session) {
@@ -98,7 +99,12 @@ public class ItemController {
     }
 
     @PostMapping
-    public String saveItem(@ModelAttribute("item") Item item) {
+    public String saveItem(@ModelAttribute("item") Item item, HttpSession session) {
+    	User user = (User) session.getAttribute("user");
+    	if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+    	logService.log(user.getUserName(), "added the item " + item.getName(),user.getRole().name());
         itemService.saveItem(item);
         return "redirect:/items";
     }
@@ -111,7 +117,7 @@ public class ItemController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateItem(@PathVariable Long id, @ModelAttribute("item") Item item) {
+    public String updateItem(@PathVariable Long id, @ModelAttribute("item") Item item, HttpSession session) {
 //        Item existingItem = itemService.getItemById(id);
 //        if (existingItem != null) {
 //        	existingItem.setName(item.getName());
@@ -121,14 +127,25 @@ public class ItemController {
 //
 //        itemService.saveItem(existingItem);
 //        }
+    	User user = (User) session.getAttribute("user");
+    	if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+    	 logService.log(user.getUserName(), "edited the item " + item.getName(),user.getRole().name()  );
+         
     	  itemService.updateItem(id, item);
     	  
     	  return "redirect:/items";//  return "/items/delete/"+id;
     }
 
     @GetMapping("/delete/{id}")
-    public String deleteItem(@PathVariable Long id) {
-        itemService.deleteItem(id);
+    public String deleteItem(@PathVariable Long id, HttpSession session) {
+    	User user = (User) session.getAttribute("user");
+    	if (session.getAttribute("user") == null) {
+            return "redirect:/auth/login";
+        }
+    	 logService.log(user.getUserName(), "deleted the item with id: " + id ,user.getRole().name() );
+    	itemService.deleteItem(id);
         return "redirect:/items";
     }
 }

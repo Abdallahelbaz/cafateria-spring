@@ -9,7 +9,7 @@
 <div class="container mt-5">
     <h1 th:text="${item.id} != null ? 'Edit Item' : 'Create Item'">Create Item</h1>
     
-    <form th:action="@{/edit/{id}(id=${item.id})}" th:object="${item}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/items/edit/{id}(id=${item.id})}" th:object="${item}" method="post" enctype="multipart/form-data">
         <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger" role="alert">
             <p th:errors="*{name}">Name Error</p>
         </div>
@@ -40,6 +40,7 @@
                 <option value="/images/breakfast.png" th:selected="${item.photoUrl == 'pizza'}">breakfast</option>
                 <option value="/images/milkShake.png" th:selected="${item.photoUrl == 'pizza'}">milkShake</option>
                 
+                <option value="/images/cheesecake.png" th:selected="${item.photoUrl == 'cheesecake'}">cheesecake</option>
                 <option value="/images/brunch.png" th:selected="${item.photoUrl == 'pizza'}">brunch</option>
                 
                 

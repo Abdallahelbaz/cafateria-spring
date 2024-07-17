@@ -20,5 +20,10 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
 //	@Query("SELECT c FROM Orders c WHERE c.user.id = :id")
 //	List<Order> getAllOrdersByUserID(@Param("id") Long id);
 	
-	 
+	@Query("SELECT COUNT (c) FROM Order  c WHERE c.user.id = :idd")
+	int countByUserId(Long idd);
+	
+	
+	 @Query("SELECT COUNT (c) FROM Order  c WHERE c.status  = :idd")
+		int countByStatus(String idd);
 }

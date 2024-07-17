@@ -22,7 +22,11 @@ public interface ItemRepository extends JpaRepository<Item, Long> {
 	    void updateItem(@Param("id") Long id, @Param("name") String name, @Param("photoUrl") String photoUrl, @Param("price") float price);
 
 	 List<Item> findByNameContainingIgnoreCase(String name);
-	}
+	 
+	 
+	 @Query("SELECT COUNT (c) FROM Item   ")
+		int countByUserId( );	
+}
  
 
 

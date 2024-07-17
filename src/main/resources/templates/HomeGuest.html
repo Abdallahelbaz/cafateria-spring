@@ -23,10 +23,14 @@
     <input class="form-control mr-sm-2" type="search" name="query" placeholder="Search item" aria-label="Search">
   				  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 				</form>
-             <a th:href="@{/orders/guestOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders</a>
+             <a th:href="@{/orders/guestOrders/{id}(id=${userID})}" class="btn btn-info btn-sm">My orders
+				 <span class="badge bg-danger">[[${ordersCount}]]</span>
+			 </a>
              <a th:href="@{/notifications/{id}(id=${userID})}" class="btn btn-info btn-sm">My notifications
 				 <span class="badge bg-danger">[[${notificationCount}]]</span></a>
-            <a href="/cart" class="btn btn-primary">Go to Cart</a>
+            <a href="/cart" class="btn btn-primary">Go to Cart
+				<span class="badge bg-danger">[[${CartCount}]]</span>
+			</a>
         </div>
 
         <div class="row mt-4">

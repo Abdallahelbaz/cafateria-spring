@@ -22,7 +22,8 @@ import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/payment")
 public class PaymentController {
-	
+	 @Autowired
+	    private LogService logService;
 	@Autowired
 	private CartService cartService;
 	
@@ -83,9 +84,11 @@ public String viewCart(Model model, HttpSession session) {
         model.addAttribute("userRole", ((User) session.getAttribute("user")).getRole().name()); 
         System.out.println("paymentMethod"+paymentMethod);
 		
-        
+          logService.log(user.getEmail(), "procedded  to payement ("+paymentMethod+") "
+          		                        + "| order ID:"+order.getId(),user.getRole().name()  );
+           
         if(paymentMethod.compareTo("cash")      ==0) {
-				
+        	  	
         	return "payementOnTheCafeteriaOkay";
 			
         }else

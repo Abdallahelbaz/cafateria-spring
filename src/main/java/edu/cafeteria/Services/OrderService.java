@@ -47,6 +47,15 @@ public class OrderService {
 		 return orderRepository.findById(orderId);
 	}
 
+	public int countByUserId(Long idd) {
+		 return orderRepository.countByUserId(idd);
+	}
+
+	public int countBystatus(String string) {
+		// TODO Auto-generated method stub
+		return orderRepository.countByStatus(string);
+	}
+
 //	public List<Order> getAllOrdersByUserID(Long id) {
 //		List<Order> L=orderRepository.getAllOrdersByUserID(  id);
 //		return L;
