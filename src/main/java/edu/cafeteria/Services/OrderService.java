@@ -28,8 +28,7 @@ public class OrderService {
     }
 
     public void markAsReady(Order order) {
-        // Logic to mark the order as ready
-        // This could be a status field in the Order entity
+        
         order.setStatus("READY");
         orderRepository.save(order);
     }
@@ -52,13 +51,10 @@ public class OrderService {
 	}
 
 	public int countBystatus(String string) {
-		// TODO Auto-generated method stub
+		 
 		return orderRepository.countByStatus(string);
 	}
 
-//	public List<Order> getAllOrdersByUserID(Long id) {
-//		List<Order> L=orderRepository.getAllOrdersByUserID(  id);
-//		return L;
-//	}
+ 
 }
 

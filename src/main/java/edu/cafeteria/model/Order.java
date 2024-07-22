@@ -42,7 +42,7 @@ private User user;
     
 	public Order() {
 		super();
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 

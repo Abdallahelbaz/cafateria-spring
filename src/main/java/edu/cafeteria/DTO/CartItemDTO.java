@@ -1,8 +1,5 @@
 package edu.cafeteria.DTO;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import edu.cafeteria.model.Cart;
 import edu.cafeteria.model.Item;
 
@@ -19,8 +16,7 @@ public class CartItemDTO {
 	    private double totalPrice;
 
 		public CartItemDTO() {
-			super();
-			// TODO Auto-generated constructor stub
+			super(); 
 		}
 
 		public CartItemDTO(Long id, Cart cart, Item item, int quantity, double totalPrice) {

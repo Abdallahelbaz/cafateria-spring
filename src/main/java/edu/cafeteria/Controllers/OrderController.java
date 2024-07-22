@@ -1,39 +1,39 @@
 package edu.cafeteria.Controllers; 
 
 
-import edu.cafeteria.model.Item;
-import edu.cafeteria.model.Order;
-import edu.cafeteria.model.Role;
-import edu.cafeteria.model.User;
-import edu.cafeteria.DTO.OrderDTO;
-import edu.cafeteria.Repos.OrderRepository;
-import edu.cafeteria.Services.*;
-import edu.cafeteria.converter.OrderConverter;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import edu.cafeteria.DTO.OrderDTO;
+import edu.cafeteria.Repos.OrderRepository;
+import edu.cafeteria.Services.EmailService;
+import edu.cafeteria.Services.OrderService;
+import edu.cafeteria.model.Item;
+import edu.cafeteria.model.Order;
+import edu.cafeteria.model.Role;
+import edu.cafeteria.model.User;
+
 @Controller
 @RequestMapping("/orders")
 public class OrderController {
     @Autowired
     private OrderService orderService;
-    @Autowired
-    private OrderConverter orderConverter;
+    
     @Autowired
     private OrderRepository orderRepository;
-    @Autowired
-    private UserService userService; 
+    
     @Autowired
     private EmailService emailService; 
     
@@ -105,15 +105,14 @@ public class OrderController {
     
     
     
-    
-    //
+     
     @GetMapping("/{id}")
     public String viewOrder(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Order> order = orderRepository.findById(id);
          
         if (order.isPresent()) {
             OrderDTO orderDTO = new OrderDTO();
-            // Convert order to OrderDTO (assuming you have a method to do this)
+          
             orderDTO = convertToDTO(order.get());
             
             Long idd=(Long) ((User) session.getAttribute("user")).getId();
@@ -124,7 +123,7 @@ public class OrderController {
             model.addAttribute("order", orderDTO);
             return "viewOrder";
         } else {
-            // Handle the case where the order is not found
+            
             model.addAttribute("errorMessage", "Order not found");
             return "error";
         }
@@ -152,15 +151,10 @@ public class OrderController {
     }
     @PostMapping("/NOTIFY/{idClient}/{idOrder}")
     public String NOTIFYClient(@PathVariable Long  idClient,@PathVariable Long idOrder) {
-       System.out.println("2222222222222222222222222222222222222222222222222222222"
-       		+ "cleint id:"+idClient+" notified about the order : "+idOrder);
-       //
-       String email=  userService.findById(idClient).get().getEmail();
-       
+      
+        
        emailService.sendOrderReadyNotification(idOrder);
-       //
-       System.out.println("7777777777777777777777777777777777777777777777777777777777777777777777777777777777777777"
-          		+ "cleint id:"+idClient+" notified about the order : "+idOrder);
+       
         return "redirect:/orders/ready";
     }
     
@@ -172,38 +166,14 @@ public class OrderController {
         
         User user = (User) session.getAttribute("user");
         session.setAttribute("user",user);
-//        if (  user.getRole() == Role.guest  ) {
-//        	 Long idd=(Long) ((User) session.getAttribute("user")).getId();
-//             
-//             model.addAttribute("userID", idd);
-//             
-//            model.addAttribute("MaskedEMail",maskEmail(MaskedEMail)  ); 
-//             model.addAttribute("items", itemService.getAllItems());
-//        	return "HomeGuest"; 
-//        } else if(user.getRole() == Role.staff)  {
-//        	return "HomeStaff";
-//        }else {
-//        	return "redirect:/auth/login";
-//        }
+ 
         return "redirect:/";
          
     } 
-//    @GetMapping("/delete/{id}")
-//    public String deleteOrder(@PathVariable("id") Long id, Model model) {
-//        Optional<Order> order = orderRepository.findById(id);
-//        if (order.isPresent()) {
-//            orderRepository.delete(order.get());
-//            return "redirect:/orders/staffOrders"; // Assuming you have a list of orders page
-//        } else {
-//            // Handle the case where the order is not found
-//        	System.out.println("eeeeeeeeeeeeeeeeee"+id);
-//            model.addAttribute("errorMessage", "Order not found");
-//            return "error";
-//        }
-//    }
+ 
 
     private OrderDTO convertToDTO(Order order) {
-        // Implement the conversion from Order to OrderDTO
+         
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setOrderDate(order.getOrderDate());
@@ -214,7 +184,7 @@ public class OrderController {
         return orderDTO;
     }
     
-    //
+    
     
     
     
@@ -223,16 +193,8 @@ public class OrderController {
     
     
     @GetMapping("/staffOrders/{id}")
-    public String viewStaffOrders(@PathVariable("id") Long id,Model model/*, HttpSession session*/) {
-//    	  User user = (User) session.getAttribute("user");
-//          if (user == null || user.getRole() == Role.employee) {
-//              return "redirect:/auth/login";
-//          }
-          
-          
-       //   model.addAttribute("items", orderConverter.modelToDto(orderService.getAllOrders( )));
-        // model.addAttribute("newOrders", orderService.getOrdersByStatus("NEW"));
-       //  model.addAttribute("allOrdersDTO", orderConverter.modelToDto(orderService.getAllOrders( )));
+    public String viewStaffOrders(@PathVariable("id") Long id,Model model ) {
+ 
     	List <Order> FiltredList =new ArrayList<>();   ;
     	 
     	List <Order> originalList=orderService.getAllOrders( );
@@ -269,7 +231,7 @@ public class OrderController {
     	
     	model.addAttribute("allOrdersDTO",  FiltredList );
          
-      //  model.addAttribute("orders", orderService.getOrdersByStatus("NEW"));
+      
         return "guestOrders";
     }
 }

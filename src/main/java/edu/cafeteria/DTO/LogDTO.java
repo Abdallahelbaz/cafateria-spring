@@ -1,8 +1,7 @@
 package edu.cafeteria.DTO;
 
 import java.util.Date;
-
-import javax.persistence.Column;
+ 
 
 public class LogDTO {
 	  private Long id;

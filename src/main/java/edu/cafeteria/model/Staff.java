@@ -10,8 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import java.util.Date;
-import java.util.List;
+ 
 
 @Entity
 @Table(name = "Staffs")

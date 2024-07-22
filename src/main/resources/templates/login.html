@@ -5,6 +5,33 @@
     <meta charset="UTF-8">
     <title>Login</title>
     <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+   <style>
+        .social-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 18px;
+            color: white;
+        }
+        .google-btn {
+            background-color: #4285F4;
+        }
+        .google-btn i {
+            margin-right: 10px;
+        }
+        .github-btn {
+            background-color: #333;
+        }
+        .github-btn i {
+            margin-right: 10px;
+        }
+        .btn-block {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <div class="container mt-5">
@@ -29,42 +56,16 @@
         <p class="text-danger mt-3 text-center" th:if="${error}" th:text="${error}"></p>
           <div class="text-center mt-3">
             <a href="/auth/signup" class="btn btn-info">Register</a>
-        <div class="text-center mt-3">
+       <!-- <div class="text-center mt-3">
             <a href="/auth/guestLogin" class="btn btn-warning">Login as Guest</a>
-        </div>
+        </div>-->
+         <h3 class="">OR</h3>
+    <a th:href="@{/oauth2/authorization/google}" class="btn google-btn social-btn btn-block">
+                <i class="fab fa-google"></i> Login as Guest with Google
+            </a>
+
+
     </div>
 </body>
 </html>
-<!--
-
-
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Login</h2>
-        <form action="/auth/login" method="post">
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" class="form-control" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" class="form-control" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Login</button>
-        </form>
-        <br>
-        <form action="/auth/guestLogin" method="post">
-            <button type="submit" class="btn btn-secondary">Login as Guest</button>
-        </form>
-        <p th:if="${error}" th:text="${error}" class="text-danger mt-3"></p>
-    </div>
-</body>
-</html>
--->
+ 

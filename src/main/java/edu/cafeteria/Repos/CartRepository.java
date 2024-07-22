@@ -9,8 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import edu.cafeteria.model.Cart;
-import edu.cafeteria.model.Item;
+import edu.cafeteria.model.Cart; 
 import edu.cafeteria.model.User;
 
 @Repository

@@ -1,47 +1,4 @@
-<!-- 
-
- <!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <title>Signup</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h1 class="mb-4">Signup</h1>
-        <form action="/auth/signup" method="post">
-            <div class="form-group">
-                <label for="firstName">First Name:</label>
-                <input type="text" id="firstName" name="firstName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="lastName">Last Name:</label>
-                <input type="text" id="lastName" name="lastName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="userName">Username:</label>
-                <input type="text" id="userName" name="userName" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" class="form-control" required>
-            </div>
-            <div class="form-group">
-                <label for="phone">Phone:</label>
-                <input type="text" id="phone" name="phone" class="form-control" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Signup</button>
-        </form>
-    </div>
-</body>
-</html>
--->
-
+ 
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
@@ -64,10 +21,10 @@
         <form action="/auth/signup" method="post">
             <div class="form-group">
                 <label>Role:</label><br>
-                <div class="form-check form-check-inline">
+                <!--<div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="role" id="roleGuest" value="guest" onclick="toggleForm()" required>
                     <label class="form-check-label" for="roleGuest">Guest</label>
-                </div>
+                </div>-->
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" name="role" id="roleStaff" value="staff" onclick="toggleForm()" required>
                     <label class="form-check-label" for="roleStaff">Staff</label>

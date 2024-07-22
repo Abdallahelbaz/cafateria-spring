@@ -2,8 +2,7 @@ package edu.cafeteria.DTO;
  
 
 import java.util.Date;
-
-import javax.persistence.Column;
+ 
 
 import edu.cafeteria.model.EmployeeID;
 import edu.cafeteria.model.Role;

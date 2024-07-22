@@ -1,15 +1,11 @@
 package edu.cafeteria.Services;
 import edu.cafeteria.Repos.NotificationRepository;
 import edu.cafeteria.model.Notification;
-import org.springframework.stereotype.Service;
-import edu.cafeteria.model.Notification;
-import edu.cafeteria.Repos.NotificationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Service; 
+import org.springframework.beans.factory.annotation.Autowired; 
 
 import java.util.List;
-import java.util.Optional;
-import java.util.List;
+import java.util.Optional; 
 @Service
 public class NotificationService {
 
@@ -42,10 +38,9 @@ public class NotificationService {
     public Optional<List<Notification>> findByUserId(Long userId) {
         return  notificationRepository.findByUserId(userId);
     }
-    // Simulated fetching notifications logic
+     
     public List<Notification> getNotificationsForUser(Long userId) {
-        // Implement fetching notifications from database or other source
-      //  return List.of(new Notification(1L, userId, "Order is ready"));
+       
     	return null;
     }
 

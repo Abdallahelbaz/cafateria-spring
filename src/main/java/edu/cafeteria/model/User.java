@@ -1,11 +1,9 @@
 package edu.cafeteria.model;
 
-import javax.persistence.*;
-import javax.transaction.Transactional;
+import javax.persistence.*; 
  
 
-import java.util.Date;
-import java.util.List;
+import java.util.Date; 
 
 
 @Entity 
@@ -65,14 +63,7 @@ public   class User {
 
 	 
 
-	public Cart getCart() {
-		return cart;
-	}
-
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+	
 
 
 	public User(String firstName, String lastName, Date birthDate, String email, String userName, String password,
@@ -114,8 +105,9 @@ public   class User {
 	public User() {
 		// TODO Auto-generated constructor stub
 	}
-
-
+	 
+	
+  
 	public Long getId() {
 		return id;
 	}
@@ -160,7 +152,14 @@ public   class User {
 	public String getUserName() {
 		return userName;
 	}
+public Cart getCart() {
+		return cart;
+	}
 
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}

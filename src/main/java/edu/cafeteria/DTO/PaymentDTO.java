@@ -1,8 +1,6 @@
 package edu.cafeteria.DTO;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+ 
 
 import edu.cafeteria.model.Order;
 import edu.cafeteria.model.User;
@@ -24,8 +22,7 @@ public class PaymentDTO {
 		}
 
 		public PaymentDTO() {
-			super();
-			// TODO Auto-generated constructor stub
+			super(); 
 		}
 
 		public Long getId() {
