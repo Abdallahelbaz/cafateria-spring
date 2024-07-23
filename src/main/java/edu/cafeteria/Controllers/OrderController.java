@@ -30,6 +30,7 @@ import edu.cafeteria.model.User;
 public class OrderController {
     @Autowired
     private OrderService orderService;
+<<<<<<< HEAD
 
     @Autowired
     private OrderRepository orderRepository;
@@ -48,6 +49,27 @@ public class OrderController {
             return "redirect:/auth/login";
         }
 
+=======
+    
+    @Autowired
+    private OrderRepository orderRepository;
+    
+    @Autowired
+    private EmailService emailService; 
+    
+    
+    
+    public List <Item> items;
+    
+    @GetMapping("/new") 
+    public String viewNewOrders(Model model,  HttpSession session) {
+    	
+    	 User user = (User) session.getAttribute("user");
+       if (user == null || user.getRole() == Role.guest|| user.getRole() == Role.staff) {
+           return "redirect:/auth/login";
+       }
+    	
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
         model.addAttribute("orders", orderService.getOrdersByStatus("NEW"));
         return "newOrders";
     }
@@ -96,15 +118,27 @@ public class OrderController {
         orderService.updateOrderStatus(orderId, "COMPLETE");
         return "redirect:/orders/ready";
     }
+<<<<<<< HEAD
 
 
+=======
+    
+    
+    
+    
+     
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
     @GetMapping("/{id}")
     public String viewOrder(@PathVariable("id") Long id, Model model, HttpSession session) {
         Optional<Order> order = orderRepository.findById(id);
 
         if (order.isPresent()) {
             OrderDTO orderDTO = new OrderDTO();
+<<<<<<< HEAD
 
+=======
+          
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
             orderDTO = convertToDTO(order.get());
 
             Long idd = (Long) ((User) session.getAttribute("user")).getId();
@@ -115,7 +149,11 @@ public class OrderController {
             model.addAttribute("order", orderDTO);
             return "viewOrder";
         } else {
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
             model.addAttribute("errorMessage", "Order not found");
             return "error";
         }
@@ -147,11 +185,19 @@ public class OrderController {
 
 
     @PostMapping("/NOTIFY/{idClient}/{idOrder}")
+<<<<<<< HEAD
     public String NOTIFYClient(@PathVariable Long idClient, @PathVariable Long idOrder) {
 
 
         emailService.sendOrderReadyNotification(idOrder);
 
+=======
+    public String NOTIFYClient(@PathVariable Long  idClient,@PathVariable Long idOrder) {
+      
+        
+       emailService.sendOrderReadyNotification(idOrder);
+       
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
         return "redirect:/orders/ready";
     }
 
@@ -162,6 +208,7 @@ public class OrderController {
         orderService.save(order);
 
         User user = (User) session.getAttribute("user");
+<<<<<<< HEAD
         session.setAttribute("user", user);
 
         return "redirect:/";
@@ -171,6 +218,17 @@ public class OrderController {
 
     private OrderDTO convertToDTO(Order order) {
 
+=======
+        session.setAttribute("user",user);
+ 
+        return "redirect:/";
+         
+    } 
+ 
+
+    private OrderDTO convertToDTO(Order order) {
+         
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
         OrderDTO orderDTO = new OrderDTO();
         orderDTO.setId(order.getId());
         orderDTO.setOrderDate(order.getOrderDate());
@@ -180,6 +238,7 @@ public class OrderController {
         orderDTO.setStatus(order.getStatus());
         return orderDTO;
     }
+<<<<<<< HEAD
 
 
     @GetMapping("/staffOrders/{id}")
@@ -198,10 +257,38 @@ public class OrderController {
 
 
         System.out.println("ZZZZZZZZZZZZZZallOrdersDTO" + orderService.getAllOrders().get(0).getStatus());
+=======
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    @GetMapping("/staffOrders/{id}")
+    public String viewStaffOrders(@PathVariable("id") Long id,Model model ) {
+ 
+    	List <Order> FiltredList =new ArrayList<>();   ;
+    	 
+    	List <Order> originalList=orderService.getAllOrders( );
+    	for(int i=0;i<originalList.size();i++) {
+    		if(originalList.get(i).getUser().getId()==id) {
+    			FiltredList.add(originalList.get(i));
+    		}
+    	}
+    	
+    	model.addAttribute("allOrdersDTO",  FiltredList );
+         
+         
+         System.out.println("ZZZZZZZZZZZZZZallOrdersDTO"+orderService.getAllOrders( ).get(0).getStatus());
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
         return "staffOrders";
     }
 
     @GetMapping("/guestOrders/{id}")
+<<<<<<< HEAD
     public String viewGuestOrders(@PathVariable("id") Long id, Model model) {
         List<Order> FiltredList = new ArrayList<>();
         ;
@@ -212,6 +299,21 @@ public class OrderController {
             }
         }
         model.addAttribute("allOrdersDTO", FiltredList);
+=======
+    public String viewGuestOrders(@PathVariable("id") Long id,Model model) {
+    	List <Order> FiltredList =new ArrayList<>();   ;
+   	 
+    	List <Order> originalList=orderService.getAllOrders( );
+    	for(int i=0;i<originalList.size();i++) {
+    		if(originalList.get(i).getUser().getId()==id) {
+    			FiltredList.add(originalList.get(i));
+    		}
+    	}
+    	
+    	model.addAttribute("allOrdersDTO",  FiltredList );
+         
+      
+>>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
         return "guestOrders";
     }
 }
