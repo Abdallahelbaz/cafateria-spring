@@ -4,13 +4,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.cafeteria.Repos.OrderRepository;
-import edu.cafeteria.Services.EmailService;
+ 
 import edu.cafeteria.Services.NotificationService;
-import edu.cafeteria.Services.OrderService;
-import edu.cafeteria.Services.UserService;
-import edu.cafeteria.configuration.RabbitMQConfig;
-import edu.cafeteria.converter.OrderConverter;
+import edu.cafeteria.Services.OrderService; 
+import edu.cafeteria.configuration.RabbitMQConfig; 
 import edu.cafeteria.model.Notification;
 import edu.cafeteria.model.Order;
 
@@ -19,15 +16,10 @@ public class EmailListener {
 
 	
 	 @Autowired
-	    private OrderService orderService;
-	    @Autowired
-	    private OrderConverter orderConverter;
-	    @Autowired
-	    private OrderRepository orderRepository;
+	    private OrderService orderService; 
 	    @Autowired
 	    private NotificationService notificationService; 
-	    @Autowired
-	    private EmailService emailService; 
+	     
 	    
 	    
 	    

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Payment</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
      <div class="container mt-5">
@@ -24,14 +24,14 @@
        
         <th:block th:if="${userRole == 'staff'}">
              
-            <form action="/HomeStaff" method="post">
+            <form action="/HomeStaff" method="get">
                 <button type="submit" class="  btn btn-warning">back</button>
             </form>   
         </th:block>
         <th:block th:if="${userRole == 'guest'}">
        
           
-             <form action="/HomeGuest" method="post">
+             <form action="/HomeGuest" method="get">
                 <button type="submit" class="  btn btn-warning">back</button>
             </form>   
         </th:block>

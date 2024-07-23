@@ -35,10 +35,10 @@ public class Cart {
 		this.totalPrice = (double) 0;
     }
 
-    // Getters and Setters
+   
 
     public Cart(String userEmail) {
-		// TODO Auto-generated constructor stub
+		 
 	}
 
 	 
@@ -78,8 +78,7 @@ public class Cart {
     public void addItem(Item item) {
         CartItem cartItem = new CartItem(this, item);
         items.add(cartItem);
-      //  item.setOrder(this);
-     ///   recalculateTotalPrice();
+      
     }
 
     public void removeItem(Item item) {
@@ -88,7 +87,7 @@ public class Cart {
     }
 
     private void recalculateTotalPrice() {
-      //  totalPrice = items.stream().mapToDouble(CartItem::getTotalPrice).sum();
+     
     	totalPrice = items.stream().mapToDouble(CartItem::getTotalPrice).sum();
     }
 

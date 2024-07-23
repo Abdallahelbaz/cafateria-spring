@@ -7,19 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Item")
  
-public   class Item {
-
-    public Item() {
-		 
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
+ public   class Item {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,6 +30,27 @@ public   class Item {
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    
+    @Transient
+    private ItemState state;
+    
+    
+   
+
+    public Item() {
+    	 this.state = new AvailableState();
+	}
+
+    
+    
+    
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
    public Item(  String name, String description, float price,String photoUrl) {
 		super();
 		 
@@ -59,7 +68,18 @@ public Item(String name, String description, float price, String photoUrl, Order
 	this.photoUrl = photoUrl;
 	this.order = order;
 }
+public ItemState getState() {
+    return state;
+}
 
+public void setState(ItemState state) {
+    this.state = state;
+    this.state.handleStateChange(this);
+}
+
+public String getStateName() {
+    return this.state.getStateName();
+}
 public String getPhotoUrl() {
 	return photoUrl;
 }

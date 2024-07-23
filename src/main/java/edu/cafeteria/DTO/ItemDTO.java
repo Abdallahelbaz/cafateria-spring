@@ -1,9 +1,5 @@
 package edu.cafeteria.DTO;
 
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import edu.cafeteria.model.Order;
 
 public class ItemDTO {

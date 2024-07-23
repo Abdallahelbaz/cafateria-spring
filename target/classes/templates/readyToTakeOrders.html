@@ -1,0 +1,53 @@
+ 
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ready Orders</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+		<a href="/HomeEmployee" class="btn btn-primary">Back</a>
+        <h2>Ready Orders</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Order Date</th>
+                    <th>Total Price</th>
+                    <th>Status</th>
+                    <th>User</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="order : ${orders}">
+                    <td th:text="${order.id}">1</td>
+                    <td th:text="${#dates.format(order.orderDate, 'dd-MM-yyyy HH:mm')}">01-01-2021 10:00</td>
+                    <td th:text="${order.totalPrice}">100.00</td>
+                    <td th:text="${order.status}">NEW</td>
+                    <td th:text="${order.user.email}">email</td>
+                    <!--<td>
+                        <ul>
+                            <li th:each="item : ${order.items}">
+                                <span th:text="${item.name}">Item Name</span> - 
+                                <span th:text="${item.price}">Item Price</span>
+                            </li>
+                        </ul>
+                    </td>-->
+                    <td>
+                        <form th:action="@{/orders/NOTIFY/{userId}/{id}(userId=${order.user.id}, id=${order.id})}" method="post">
+                            <button type="submit" class="btn btn-info">Notify client</button>
+                        </form>
+                        <form th:action="@{/orders/setToken/{id}(id=${order.id})}" method="post">
+                            <button type="submit" class="btn btn-danger">Kill the order!</button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+

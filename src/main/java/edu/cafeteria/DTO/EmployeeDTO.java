@@ -1,10 +1,5 @@
 package edu.cafeteria.DTO;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import edu.cafeteria.model.User;
 
 public class EmployeeDTO {
@@ -26,7 +21,7 @@ public class EmployeeDTO {
 
 		public EmployeeDTO() {
 			super();
-			// TODO Auto-generated constructor stub
+			 
 		}
 
 

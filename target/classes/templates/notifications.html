@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .back-button {
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="javascript:history.back()" class="btn btn-secondary back-button">Back</a> 
+        <h2>Notifications</h2>
+        <div th:each="notification, iterStat : ${notifications}" th:id="'notification-' + ${notification.id}">
+            <div class="alert alert-info" role="alert">
+                <p th:text="'Order ' + ${notification.order.id} + ' is ready!'"></p>
+                <p th:text="'Date: ' + ${notification.order.orderDate}"></p>
+                <p th:text="'Total price: ' + ${notification.order.totalPrice} + ' $'"></p>
+                <button class="btn btn-primary" th:onclick="'markAsViewed(' + ${notification.id} + ');'">Mark as Viewed</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+	 
+
+
+        function markAsViewed(notificationId) {
+            fetch(`/notifications/${notificationId}`, {
+                method: 'DELETE'
+            })
+            .then(response => {
+                if (response.ok) {
+                    const notificationElement = document.getElementById(`notification-${notificationId}`);
+                    if (notificationElement) {
+                        notificationElement.remove();
+                    }
+                } else {
+                    alert('Failed to delete the notification.');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to delete the notification.');
+            });
+        }
+    </script>
+</body>
+</html>

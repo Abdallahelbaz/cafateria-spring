@@ -1,8 +1,7 @@
 package edu.cafeteria.Services;
 
 import edu.cafeteria.model.Item;
-import edu.cafeteria.model.Cart;
-import edu.cafeteria.model.Order;
+import edu.cafeteria.model.Cart; 
 import edu.cafeteria.model.User;
 import edu.cafeteria.Repos.*;
  
@@ -10,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+ 
 import java.util.Optional;
 
 import javax.persistence.EntityNotFoundException;
@@ -50,6 +49,8 @@ public class CartService {
     public Cart getCart(String userEmail) {
         return cartRepository.findByUserEmail(userEmail).orElse(new Cart(userEmail));
     }
+
+
     @Transactional
 	public void clearCart(String userEmail) {
     	 Optional<Cart> optionalCart = cartRepository.findByUserEmail(userEmail);
@@ -57,17 +58,16 @@ public class CartService {
          if (optionalCart.isPresent()) {
              Cart cart = optionalCart.get();
              
-             // Clear items and save cart
+             
              cart.getItems().clear();
              cart.setTotalPrice(0.0);
              cartRepository.save(cart);
              
-             // Alternatively, you could delete cart items explicitly if needed
-             // cart.getItems().forEach(cartItemRepository::delete);
+             
              
          } else {
              throw new RuntimeException("Cart not found for user with email: " + userEmail);
          }
-//		 
+ 		 
 	}
 }

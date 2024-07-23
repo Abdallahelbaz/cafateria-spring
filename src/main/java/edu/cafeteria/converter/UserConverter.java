@@ -1,8 +1,7 @@
 package edu.cafeteria.converter;
  
 
-import edu.cafeteria.DTO.UserDTO;
-import edu.cafeteria.model.StaffID;
+import edu.cafeteria.DTO.UserDTO; 
 import edu.cafeteria.model.User;
 import org.springframework.stereotype.Component;
 

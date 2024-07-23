@@ -5,10 +5,8 @@ import java.util.List;
 
 import org.springframework.stereotype.Component;
 
-import edu.cafeteria.DTO.OrderDTO;
-import edu.cafeteria.DTO.UserDTO;
-import edu.cafeteria.model.Order;
-import edu.cafeteria.model.User;
+import edu.cafeteria.DTO.OrderDTO; 
+import edu.cafeteria.model.Order; 
 
 @Component
 public class OrderConverter {

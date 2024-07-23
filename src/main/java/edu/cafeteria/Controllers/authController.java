@@ -10,8 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+ 
 
 import javax.servlet.http.HttpSession;
 
@@ -24,12 +23,14 @@ public class authController {
     private UserService userService;
 	 @Autowired
 	    private ValidationService validationService;
+	 @Autowired
+	    private homeController homController;
 	 
 
 @GetMapping("/signup")
 public String signupForm(Model model) {
     model.addAttribute("user", new User());
-    return "LandingPage";  //zz
+    return "LandingPage";   
 }
 @GetMapping("/signup/guest")
 public String guestSignup(Model model) {
@@ -54,69 +55,7 @@ public String error(Model model) {
     
     return "error";
 }
-//
-//@PostMapping("/signup")
-//public String signup(@ModelAttribute User user, Model model) {
-//	 String s="TTTTTTTTTTTTTTTTTTTT";
-//	 
-//	 System.out.println(s);
-//	 System.out.println(user.getEmail());
-//	 if ("employee".equals(user.getRole())) {
-//         if (!validationService.isValidEmployeeID(user.getEmployeeID().toString())) {
-//        	 s="TTTTTTTTTTTTTTTTTTTTEmployee";System.out.println(s);
-//             model.addAttribute("error", "Invalid Employee ID.");
-//             return "signup";
-//         }
-////         User user3=new User();
-////         user3.setFirstName(user.getFirstName());
-////         user3.setLastName(user.getLastName());
-////         user3.setEmail(user.getEmail());
-////         user3.setUserName(user.getUserName());
-////         user3.setPassword(user.getPassword());
-////         user3.setPhone(user.getPhone());
-////         user3.setStaffID(user.getStaffID());
-////         user3.setRole(user.getRole());//Role.guest);//user.getRole());  
-////         userService.signup(user3);
-//         
-//         
-//         
-//     } else if ("staff".equals(user.getRole())) {
-//         if (!validationService.isValidStaffID(user.getStaffID().toString())) {
-//        	 s="TTTTTTTTTTTTTTTTTTTTInvalid Staff ID";System.out.println(s);
-//             model.addAttribute("error", "Invalid Staff ID.");
-//             return "signup"; 
-//         }
-//     }
-////         User user4=new User();
-////         user4.setFirstName(user.getFirstName());
-////         user4.setLastName(user.getLastName());
-////         user4.setEmail(user.getEmail());
-////         user4.setUserName(user.getUserName());
-////         user4.setPassword(user.getPassword());
-////         user4.setPhone(user.getPhone());
-////         user4.setStaffID(user.getStaffID());
-////         
-////         
-////         user4.setRole(user.getRole());//Role.guest);//user.getRole());  
-////         userService.signup(user4);
-////     }else {
-////    	  System.out.println("99999999999999"+s);
-////    	  User user1=new User();
-////	user1.setRole(user.getRole()); 
-////	  
-////	user1.setEmail(user.getEmail());
-////    userService.signup(user1);
-////    return "redirect:/auth/login";
-////     }
-//         
-//   	  
-//    
-//       userService.signup(user );
-//	return "redirect:/auth/login";
-//	
-//   
-//	 
-//}
+ 
 @PostMapping("/signup")
  public String signupSubmit(@ModelAttribute User user, Model model) {
 	
@@ -127,9 +66,8 @@ public String error(Model model) {
                 model.addAttribute("error", "Invalid Employee ID.");
                 return user.getRole() == Role.employee ? "employeeSignup" : user.getRole() == Role.staff ? "staffSignup" : "guestSignup";
             }
-            if (validationService.isEmployeeIDTaken(user.getEmployeeID())) {//  id is taken
-//            //    model.addAttribute("error", "Employee ID is already taken.");
-//                return "employeeSignup";
+            if (validationService.isEmployeeIDTaken(user.getEmployeeID())) { 
+ 
             return "LandingPageBIS";
             }
         } else if (user.getRole() == Role.staff) {
@@ -137,9 +75,8 @@ public String error(Model model) {
                 model.addAttribute("error", "Invalid Staff ID.");
                 return user.getRole() == Role.staff ? "staffSignup" : "guestSignup";
             }
-            if (validationService.isStaffIDTaken(user.getStaffID())) {//  id is taken
-//             //   model.addAttribute("error", "Staff ID is already taken.");
-//                return "staffSignup";
+            if (validationService.isStaffIDTaken(user.getStaffID())) {
+
             return "LandingPageBIS";
             }
         }
@@ -154,41 +91,18 @@ public String error(Model model) {
         return user.getRole() == Role.employee ? "employeeSignup" : user.getRole() == Role.staff ? "staffSignup" : "guestSignup";
     }
  
-//    System.out.println("Received form data: " + user.toStringImp());
-//    try {
-//        if (user.getRole() == Role.employee) {
-//            if (!validationService.isValidEmployeeID(user.getEmployeeID().toString())) {
-//                model.addAttribute("error", "Invalid Employee ID.");
-//                return "signup";
-//            }
-//        } else if (user.getRole() == Role.staff) {
-//            if (!validationService.isValidStaffID(user.getStaffID().toString())) {
-//                model.addAttribute("error", "Invalid Staff ID.");
-//                return "signup";
-//            }
-//        }
-//        userService.signup(user);
-//        return "redirect:/auth/login";
-//    } catch (ConversionFailedException e) {
-//        model.addAttribute("error", "Invalid Staff ID or Employee ID.");
-//        return "signup";
-//    }
+ 
 }
 
 @GetMapping("/guestLogin")
 public String guestLoginForm(Model model) {
-    model.addAttribute("user", new User()); // Assuming you might want to use a form for guest login
-    return "guestLogin"; // Replace with the appropriate view name for guest login form
+    model.addAttribute("user", new User());  
+    return "guestLogin";  
 }
 
 @PostMapping("/guestLogin")
 public String guestLogin(@RequestParam String email, HttpSession session,Model model) {
-//    User guestUser = new User();
-//    guestUser.setEmail(email);
-//    guestUser.setRole(Role.guest);
-//    model.addAttribute("email", guestUser.getEmail());
-//    session.setAttribute("user", guestUser);
-//    return "redirect:/HomeGuest";
+ 
 	 return userService.guestLogin(email ).map(user -> {
 	        session.setAttribute("user", user);
 	        session.setAttribute("userRole", user.getRole());
@@ -224,8 +138,11 @@ public String loginForm(Model model) {
 
 @PostMapping("/login")
 public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
-    return userService.login(email, password).map(user -> {
+   System.out.println("herlloo login");
+
+	return userService.login(email, password).map(user -> {
         session.setAttribute("user", user);
+
         switch (user.getRole()) {
             case employee:
             {
@@ -255,6 +172,8 @@ public String login(@RequestParam String email, @RequestParam String password, H
 @PostMapping("/logout")
 public String logout(HttpSession session) {
     session.invalidate();
+    homController.google=false;
+   
     return "redirect:/auth/login";
 }
 

@@ -1,24 +1,20 @@
 package edu.cafeteria.Controllers;
 import edu.cafeteria.model.Cart;
-import edu.cafeteria.model.Item;
-import edu.cafeteria.model.Role;
+import edu.cafeteria.model.Item; 
 import edu.cafeteria.model.User;
 import edu.cafeteria.Services.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.convert.ConversionFailedException;
-import org.springframework.http.ResponseEntity;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+ 
 
 import javax.servlet.http.HttpSession;
 @Controller
 @RequestMapping("/cart")
 public class CartController {
 	 @Autowired
-	    private LogService logService;
+     private LogService logService;
 	 @Autowired
 	    private ItemService itemService;
     @Autowired
@@ -41,15 +37,20 @@ public class CartController {
     
     @PostMapping("/addToGuest")
     public String addToCartGuest(@RequestParam Long itemId, HttpSession session) {
+
         String userEmail = ((User) session.getAttribute("user")).getEmail();
+
         User user= (User) session.getAttribute("user");
+
         Item item= itemService.getItemById(itemId);
+
         logService.log(userEmail, "added the item " + item.getName() +" to the cart",user.getRole().name()  );
         
         cartService.addToCart(userEmail, itemId);
         
         return "redirect:/HomeGuest";
     }
+
     
     @GetMapping
     public String viewCart(Model model, HttpSession session) {
@@ -66,7 +67,7 @@ public class CartController {
 
     @PostMapping("/checkout")
     public String proceedToCheckout() {
-       // return "redirect:/payment";
+       
         return "redirect:/payment";
     }
 }

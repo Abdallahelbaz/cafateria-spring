@@ -1,25 +1,38 @@
 package edu.cafeteria.Controllers;
- 
 
-import edu.cafeteria.model.Item; 
-import edu.cafeteria.model.User; 
-import edu.cafeteria.model.Role; 
-import edu.cafeteria.model.Order; 
-import edu.cafeteria.Services.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
-
-import javax.servlet.http.HttpSession;
-
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Date;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+
+import edu.cafeteria.Services.ItemService;
+import edu.cafeteria.Services.LogService;
+import edu.cafeteria.Services.OrderService;
+import edu.cafeteria.model.Item;
+import edu.cafeteria.model.Order;
+import edu.cafeteria.model.Role;
+import edu.cafeteria.model.User;
 @Controller
 @RequestMapping("/items")
 public class ItemController {
-
+	 
+	 public static String UPLOAD_DIRECTORY =  "c:/uploads";
+		 
     @Autowired
     private ItemService itemService;
     
@@ -28,6 +41,21 @@ public class ItemController {
     @Autowired
     private LogService logService;
 
+    
+    public ItemController() {
+   	 
+       Path uploadPath = Paths.get(UPLOAD_DIRECTORY);
+       if (!Files.exists(uploadPath)) {
+           try {
+               Files.createDirectories(uploadPath);
+           } catch (IOException e) {
+               e.printStackTrace();
+           }
+       }
+}
+    
+    
+    
     @GetMapping
     public String viewProducts(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");
@@ -40,15 +68,7 @@ public class ItemController {
         model.addAttribute("userName", user.getUserName());
         model.addAttribute("user", user);
         return "items";
-//    	 User user = (User) session.getAttribute("user");
-//    	    if (user == null) {
-//    	        return "redirect:/auth/login";
-//    	    }
-//
-//    	    List<Item> items = itemService.getAllItems();
-//    	    model.addAttribute("items", items);
-//    	    model.addAttribute("user", user);
-//    	    return "items";
+ 
     }
 
     @GetMapping("/order/{itemId}")
@@ -60,7 +80,7 @@ public class ItemController {
 
         Item item = itemService.getItemById(itemId);
         if (user.getRole() == Role.staff) {
-            item.setPrice((float) (item.getPrice() * 0.8)); // 20% discount
+            item.setPrice((float) (item.getPrice() * 0.8));  
         }
         model.addAttribute("item", item);
         return "order";
@@ -90,7 +110,7 @@ public class ItemController {
     
     
     
-    ///crud
+    
     @GetMapping("/new")
     public String createItemForm(Model model) {
     	
@@ -99,11 +119,23 @@ public class ItemController {
     }
 
     @PostMapping
-    public String saveItem(@ModelAttribute("item") Item item, HttpSession session) {
+    public String saveItem(@ModelAttribute("item") Item item, @RequestParam("photoUpload") MultipartFile photoUpload
+    		                           ,HttpSession session) {
     	User user = (User) session.getAttribute("user");
     	if (session.getAttribute("user") == null) {
             return "redirect:/auth/login";
         }
+    	 if (!photoUpload.isEmpty()) {
+             String fileName = photoUpload.getOriginalFilename();
+             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, fileName);
+             try {
+                 Files.write(fileNameAndPath, photoUpload.getBytes());
+                 item.setPhotoUrl("/uploads/" + fileName);
+              
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         }
     	logService.log(user.getUserName(), "added the item " + item.getName(),user.getRole().name());
         itemService.saveItem(item);
         return "redirect:/items";
@@ -117,25 +149,28 @@ public class ItemController {
     }
 
     @PostMapping("/edit/{id}")
-    public String updateItem(@PathVariable Long id, @ModelAttribute("item") Item item, HttpSession session) {
-//        Item existingItem = itemService.getItemById(id);
-//        if (existingItem != null) {
-//        	existingItem.setName(item.getName());
-//        
-//        existingItem.setPhotoUrl(item.getPhotoUrl());
-//        existingItem.setPrice(item.getPrice());
-//
-//        itemService.saveItem(existingItem);
-//        }
+    public String updateItem(@PathVariable Long id, @ModelAttribute("item") Item item,@RequestParam("photoUpload") MultipartFile photoUpload
+    		, HttpSession session) {
+ 
     	User user = (User) session.getAttribute("user");
     	if (session.getAttribute("user") == null) {
             return "redirect:/auth/login";
         }
-    	 logService.log(user.getUserName(), "edited the item " + item.getName(),user.getRole().name()  );
+    	 if (!photoUpload.isEmpty()) {
+             String fileName = photoUpload.getOriginalFilename();
+             Path fileNameAndPath = Paths.get(UPLOAD_DIRECTORY, fileName);
+             try {
+                 Files.write(fileNameAndPath, photoUpload.getBytes());
+                item.setPhotoUrl("/uploads/" + fileName); 
+             } catch (IOException e) {
+                 e.printStackTrace();
+             }
+         } 
+    	logService.log(user.getUserName(), "edited the item " + item.getName(),user.getRole().name()  );
          
     	  itemService.updateItem(id, item);
     	  
-    	  return "redirect:/items";//  return "/items/delete/"+id;
+    	  return "redirect:/items"; 
     }
 
     @GetMapping("/delete/{id}")

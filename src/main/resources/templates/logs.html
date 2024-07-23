@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Logs</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cerulean/bootstrap.min.css" rel="stylesheet">
     <style>
         .scrollable-table {
             max-height: 300px;
@@ -80,73 +80,4 @@
     </div>
 </body>
 </html>
-
-<!--
- <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Logs</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/sketchy/bootstrap.min.css" rel="stylesheet">
-</head>
-<body>
-    <div class="container mt-5">
-        <h2>Employee activity Logs</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Date.Time</th>
-                    <th>User</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="log : ${EMPlogs}">
-                    <td th:text="${log.timestamp}"></td>
-                    <td th:text="${log.user}"></td>
-                    <td th:text="${log.action}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-     <div class="container mt-5">
-        <h2>Staff activity Logs</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Date.Time</th>
-                    <th>User</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="log : ${Stafflogs}">
-                    <td th:text="${log.timestamp}"></td>
-                    <td th:text="${log.user}"></td>
-                    <td th:text="${log.action}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="container mt-5">
-        <h2>Guests activity Logs</h2>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Date.Time</th>
-                    <th>User</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="log : ${Guestlogs}">
-                    <td th:text="${log.timestamp}"></td>
-                    <td th:text="${log.user}"></td>
-                    <td th:text="${log.action}"></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
--->
+ 
