@@ -139,10 +139,7 @@ public String loginForm(Model model) {
 @PostMapping("/login")
 public String login(@RequestParam String email, @RequestParam String password, HttpSession session, Model model) {
    System.out.println("herlloo login");
-<<<<<<< HEAD
 
-=======
->>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
 	return userService.login(email, password).map(user -> {
         session.setAttribute("user", user);
 
