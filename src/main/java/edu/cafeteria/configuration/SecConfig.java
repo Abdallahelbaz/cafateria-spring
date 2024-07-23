@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.web.SecurityFilterChain;
 
 import edu.cafeteria.Controllers.homeController;
-<<<<<<< HEAD
 
 
 @Configuration
@@ -39,38 +38,5 @@ public class SecConfig {
                 .build();
     }
 
-=======
- 
-
-@Configuration
-@EnableWebSecurity
-public class SecConfig  
-
-
-{
-	@Autowired
-homeController homController;
-	
-	@Bean
-	SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-		
-		http.csrf().disable();
-		http.oauth2Login()
-        .loginPage("/auth/login").successHandler((request, response, authentication) -> {
-        	homController.google=true;
-          response.sendRedirect("/HomeGuest");     })        .failureHandler((request, response, exception)                                              -> {                                                                                            	homController.google=true;                                 response.sendRedirect("/HomeGuest"); });
-		
-		return  http
-				.authorizeHttpRequests(auth  -> {
- 
-				 	auth.anyRequest().permitAll();
-				})
-				.build();
-	}
-	
-	
-	 
-	
->>>>>>> f4810c9af638d9b83a4a8f8b5e337c7a0132c43b
 
 }
